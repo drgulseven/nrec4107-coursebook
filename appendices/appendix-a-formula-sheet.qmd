@@ -8,7 +8,7 @@ Use this sheet for quick review. Focus on interpretation first, then calculation
 
 ## Descriptive Statistics
 
-**Mean**
+### Mean
 
 $$
 \bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i
@@ -16,7 +16,7 @@ $$
 
 Average value of a variable.
 
-**Variance**
+### Variance
 
 $$
 s^2 = \frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})^2
@@ -24,7 +24,7 @@ $$
 
 Average squared distance from the mean.
 
-**Standard deviation**
+### Standard Deviation
 
 $$
 s = \sqrt{s^2}
@@ -32,33 +32,33 @@ $$
 
 Typical distance from the mean.
 
-**Correlation**
+### Correlation
 
 $$
-r_{xy} = \frac{\operatorname{cov}(x,y)}{s_xs_y}
+r_{xy} = \frac{\operatorname{cov}(x,y)}{s_x s_y}
 $$
 
 Measures linear association from -1 to 1. Correlation is not causation.
 
 ## Regression
 
-**Simple regression**
+### Simple Regression
 
 $$
-Y_i = \beta_0 + \beta_1X_i + u_i
+Y_i = \beta_0 + \beta_1 X_i + u_i
 $$
 
-\(\beta_1\) is the expected change in \(Y\) for a one-unit increase in \(X\).
+$\beta_1$ measures the expected change in $Y$ for a one-unit increase in $X$.
 
-**Multiple regression**
+### Multiple Regression
 
 $$
-Y_i = \beta_0 + \beta_1X_{1i} + \beta_2X_{2i} + \cdots + \beta_kX_{ki} + u_i
+Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \cdots + \beta_k X_{ki} + u_i
 $$
 
 Each coefficient is interpreted holding the other included variables constant.
 
-**Residual**
+### Residual
 
 $$
 \hat{u}_i = Y_i - \hat{Y}_i
@@ -66,15 +66,15 @@ $$
 
 Difference between actual and predicted value.
 
-**R-squared**
+### R-squared
 
 $$
 R^2 = 1 - \frac{SSR}{SST}
 $$
 
-Share of variation in \(Y\) explained by the model.
+Share of variation in $Y$ explained by the model.
 
-**Adjusted R-squared**
+### Adjusted R-squared
 
 $$
 \bar{R}^2 = 1 - (1-R^2)\frac{n-1}{n-k-1}
@@ -84,7 +84,7 @@ Penalizes adding extra variables that do not improve the model enough.
 
 ## Inference
 
-**t-statistic**
+### t-statistic
 
 $$
 t = \frac{\hat{\beta}_j - \beta_{j,0}}{SE(\hat{\beta}_j)}
@@ -92,7 +92,7 @@ $$
 
 Used to test whether a coefficient differs from a hypothesized value.
 
-**Confidence interval**
+### Confidence Interval
 
 $$
 \hat{\beta}_j \pm t^* SE(\hat{\beta}_j)
@@ -100,104 +100,116 @@ $$
 
 Range of plausible values for the coefficient.
 
-**p-value rule**
+### p-value Rule
 
-If \(p < 0.05\), reject the null hypothesis at the 5 percent level. Always interpret economic meaning too.
+If $p < 0.05$, reject the null hypothesis at the 5% significance level.
 
-**F-test logic**
+Always interpret economic significance as well as statistical significance.
 
-Tests whether a group of variables is jointly useful.
+### F-test
 
 $$
-H_0: \beta_1 = \beta_2 = \cdots = \beta_q = 0
+H_0:\beta_1=\beta_2=\cdots=\beta_q=0
 $$
 
-Rejecting \(H_0\) means the variables are jointly significant.
+Rejecting $H_0$ means the variables are jointly significant.
 
 ## Prediction Accuracy
 
-**MAE**
+### MAE
 
 $$
-MAE = \frac{1}{n}\sum_{i=1}^{n}|Y_i - \hat{Y}_i|
+MAE = \frac{1}{n}\sum_{i=1}^{n}|Y_i-\hat{Y}_i|
 $$
 
 Average absolute prediction error.
 
-**MSE**
+### MSE
 
 $$
-MSE = \frac{1}{n}\sum_{i=1}^{n}(Y_i - \hat{Y}_i)^2
+MSE = \frac{1}{n}\sum_{i=1}^{n}(Y_i-\hat{Y}_i)^2
 $$
 
 Average squared prediction error.
 
-**RMSE**
+### RMSE
 
 $$
 RMSE = \sqrt{MSE}
 $$
 
-Typical prediction error in the units of \(Y\).
+Typical prediction error measured in the units of $Y$.
 
 ## Functional Forms
 
-**Log-linear interpretation**
+### Log-linear Model
 
 $$
-\ln(Y_i) = \beta_0 + \beta_1X_i + u_i
+\ln(Y_i) = \beta_0 + \beta_1 X_i + u_i
 $$
 
-A one-unit increase in \(X\) is associated with approximately \(100 \times \beta_1\) percent change in \(Y\).
+A one-unit increase in $X$ is associated with approximately $100\beta_1\%$ change in $Y$.
 
-**Linear-log interpretation**
-
-$$
-Y_i = \beta_0 + \beta_1\ln(X_i) + u_i
-$$
-
-A 1 percent increase in \(X\) is associated with approximately \(\beta_1 / 100\) unit change in \(Y\).
-
-**Log-log elasticity interpretation**
+### Linear-log Model
 
 $$
-\ln(Y_i) = \beta_0 + \beta_1\ln(X_i) + u_i
+Y_i = \beta_0 + \beta_1 \ln(X_i) + u_i
 $$
 
-\(\beta_1\) is an elasticity. A 1 percent increase in \(X\) is associated with a \(\beta_1\) percent change in \(Y\).
+A 1% increase in $X$ is associated with approximately $\beta_1/100$ unit change in $Y$.
+
+### Log-log Model
+
+$$
+\ln(Y_i) = \beta_0 + \beta_1 \ln(X_i) + u_i
+$$
+
+$\beta_1$ is an elasticity.
+
+A 1% increase in $X$ is associated with a $\beta_1\%$ change in $Y$.
 
 ## Categorical Variables
 
-**Dummy variable interpretation**
+### Dummy Variable
 
 The coefficient compares the included category to the omitted reference category, holding other variables constant.
 
-**Interaction term interpretation**
+### Interaction Model
 
 $$
-Y_i = \beta_0 + \beta_1X_i + \beta_2D_i + \beta_3(X_iD_i) + u_i
+Y_i = \beta_0 + \beta_1 X_i + \beta_2 D_i + \beta_3(X_iD_i) + u_i
 $$
 
 $$
-\frac{\partial Y_i}{\partial X_i} = \beta_1 + \beta_3D_i
+\frac{\partial Y_i}{\partial X_i}
+=
+\beta_1 + \beta_3 D_i
 $$
 
-\(\beta_3\) shows how the slope of \(X\) differs when \(D = 1\).
+$\beta_3$ shows how the slope of $X$ changes when $D=1$.
 
 ## Diagnostics
 
-**VIF rule of thumb**
+### Variance Inflation Factor (VIF)
 
-VIF above 5 suggests possible multicollinearity. VIF above 10 is often treated as serious.
+VIF > 5 suggests possible multicollinearity.
 
-**Durbin-Watson interpretation**
+VIF > 10 is often considered serious.
 
-Values near 2 suggest little autocorrelation. Values far below 2 suggest positive autocorrelation.
+### Durbin-Watson
 
-**Breusch-Pagan interpretation**
+Values near 2 suggest little autocorrelation.
 
-Tests for heteroskedasticity. A small p-value suggests nonconstant error variance.
+Values substantially below 2 suggest positive autocorrelation.
 
-**Ramsey RESET interpretation**
+### Breusch-Pagan Test
 
-Tests for possible functional form problems. A small p-value suggests the model may be misspecified.
+Tests for heteroskedasticity.
+
+A small p-value suggests nonconstant error variance.
+
+### Ramsey RESET Test
+
+Tests for functional form problems.
+
+A small p-value suggests the model may be misspecified.
