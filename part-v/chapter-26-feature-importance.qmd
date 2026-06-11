@@ -35,7 +35,7 @@ feature_columns = [
     "Flavor",
 ]
 
-X = pd.get_dummies(milk_data[feature_columns], drop_first=True)
+X = pd.get_dummies(milk_data[feature_columns], drop_first=True).astype(float)
 y = milk_data["Price"]
 
 X_train, X_test, y_train, y_test = train_test_split(
@@ -44,6 +44,9 @@ X_train, X_test, y_train, y_test = train_test_split(
     test_size=0.20,
     random_state=4107
 )
+
+X_train = X_train.astype(float)
+X_test = X_test.astype(float)
 
 forest_model = RandomForestRegressor(
     n_estimators=200,
