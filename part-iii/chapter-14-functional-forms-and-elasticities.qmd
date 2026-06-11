@@ -6,8 +6,6 @@ format:
     toc-depth: 3
 ---
 
-# 14. Functional Forms
-
 ```{python}
 #| label: setup
 #| include: false

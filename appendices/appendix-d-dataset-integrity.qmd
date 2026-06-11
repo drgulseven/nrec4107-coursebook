@@ -1,8 +1,6 @@
 ---
-title: "E. Dataset Integrity"
+title: "D. Dataset Integrity"
 ---
-
-# E. Dataset Integrity
 
 Dataset integrity means the data can be trusted, checked, and reproduced.
 
@@ -77,4 +75,3 @@ Every empirical project should include a short statement like this:
 ```text
 The raw dataset was preserved separately from the cleaned dataset. The unit of observation is [unit]. Missing values, duplicates, categorical levels, and outliers were checked before estimation. Constructed variables were created using documented formulas. The data source is acknowledged in the report.
 ```
-

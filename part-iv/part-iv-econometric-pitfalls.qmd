@@ -3,8 +3,6 @@ title: "Part IV. Econometric Problems"
 description: "Applied diagnostics for evaluating whether regression results are credible."
 ---
 
-# Part IV. Econometric Problems
-
 In Part III, we learned how to estimate regression models. In Part IV, we ask a more careful question:
 
 > Can we trust the regression results?

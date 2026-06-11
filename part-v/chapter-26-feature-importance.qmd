@@ -52,8 +52,6 @@ forest_model = RandomForestRegressor(
 forest_model.fit(X_train, y_train)
 ```
 
-# 26. Feature Importance
-
 ## Purpose
 
 Machine learning models can often predict outcomes accurately, but prediction alone does not tell us why those outcomes occur.

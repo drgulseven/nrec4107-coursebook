@@ -6,8 +6,6 @@ format:
     toc-depth: 3
 ---
 
-# 12. Prediction and Fit
-
 ```{python}
 #| label: setup
 #| include: false

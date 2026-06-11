@@ -66,8 +66,6 @@ forest_model.fit(X_train, y_train)
 forest_predictions = forest_model.predict(X_test)
 ```
 
-# 25. Gradient Boosting
-
 ## Purpose
 
 Random Forests improve prediction by combining many independent trees. Boosting follows a different logic. It builds trees sequentially, allowing each new tree to learn from previous prediction errors.

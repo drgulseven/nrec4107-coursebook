@@ -29,10 +29,8 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 ```
 
-# 23. Econometrics vs ML
-
 ::: {.callout-tip}
-For exam-style questions on interpretation and prediction, see [Appendix C. Exam Practice](../appendices/appendix-c-exam-practice.qmd).
+For interpretation rules used in regression and prediction discussions, see [Appendix A. Formula Sheet](../appendices/appendix-a-formula-sheet.qmd).
 :::
 
 ## Purpose

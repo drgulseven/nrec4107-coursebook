@@ -6,8 +6,6 @@ format:
     toc-depth: 2
 ---
 
-# Part III. Regression
-
 ## Why Regression?
 
 In Part I, we learned how to prepare and organize data. In Part II, we explored data using descriptive statistics and visualization. We examined distributions, identified patterns, and developed research questions.

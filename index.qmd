@@ -16,7 +16,7 @@ Use the chapters for learning concepts and the appendices for quick reference wh
 - Use Part IV when checking model problems.
 - Use Part V for prediction and machine learning extensions.
 - Use Part VI for the empirical project.
-- Use Appendices for formulas, code, exam practice, project checklists, and dataset integrity.
+- Use Appendices for formulas, code, project checklists, and dataset integrity.
 
 ## Course map
 
@@ -28,7 +28,7 @@ Use the chapters for learning concepts and the appendices for quick reference wh
 | [Part IV. Econometric Problems](part-iv/part-iv-econometric-pitfalls.qmd) | Heteroskedasticity, autocorrelation, multicollinearity, endogeneity, and diagnostics | You need to check whether model results are reliable |
 | [Part V. Machine Learning](part-v/part-v-prediction-machine-learning.qmd) | Train-test splits, prediction, trees, boosting, and feature importance | You need prediction and machine learning extensions |
 | [Part VI. Empirical Project](part-vi/part-vi-student-empirical-project.qmd) | Research question, data, methodology, results, and final article | You are preparing the semester empirical project |
-| [Appendices](appendices/index.qmd) | Formulas, Python templates, exam practice, project checks, and dataset integrity | You need a quick reference or checklist |
+| [Appendices](appendices/index.qmd) | Formulas, Python templates, project checks, and dataset integrity | You need a quick reference or checklist |
 
 ## What students should be able to do
 
@@ -52,6 +52,5 @@ Most examples use the milk dataset so that data cleaning, visualization, regress
 
 - [Appendix A. Formula Sheet](appendices/appendix-a-formula-sheet.qmd)
 - [Appendix B. Python Code Guide](appendices/appendix-b-python-code-guide.qmd)
-- [Appendix C. Exam Practice](appendices/appendix-c-exam-practice.qmd)
-- [Appendix D. Project Checklist](appendices/appendix-d-project-checklist.qmd)
-- [Appendix E. Dataset Integrity](appendices/appendix-e-dataset-integrity.qmd)
+- [Appendix C. Project Checklist](appendices/appendix-c-project-checklist.qmd)
+- [Appendix D. Dataset Integrity](appendices/appendix-d-dataset-integrity.qmd)

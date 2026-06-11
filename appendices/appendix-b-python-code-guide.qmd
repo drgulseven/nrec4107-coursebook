@@ -2,8 +2,6 @@
 title: "B. Python Code Guide"
 ---
 
-# B. Python Code Guide
-
 ::: {.callout-tip}
 These examples are meant to be copied and adapted. Replace variable names only after checking your dataset columns.
 :::
@@ -256,4 +254,3 @@ output_path = "milk_data_cleaned.csv"
 milk_data.to_csv(output_path, index=False)
 print("Saved:", output_path)
 ```
-

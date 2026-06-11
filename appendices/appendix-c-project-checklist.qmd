@@ -1,8 +1,6 @@
 ---
-title: "D. Project Checklist"
+title: "C. Project Checklist"
 ---
-
-# D. Project Checklist
 
 Use this checklist before submitting an empirical project.
 
@@ -125,4 +123,3 @@ Use this checklist before submitting an empirical project.
 - regression results
 - diagnostics
 - short empirical report
-

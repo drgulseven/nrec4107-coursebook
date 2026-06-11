@@ -3,8 +3,6 @@ title: "18. Autocorrelation"
 description: "Detecting serially correlated errors and correcting inference using Newey-West standard errors."
 ---
 
-# 18. Autocorrelation
-
 ## Purpose
 
 Many economic datasets are collected over time. Examples include food prices, exchange rates, inflation, GDP, and stock prices. Unlike cross-sectional observations, time-series observations often exhibit persistence. What happens today is frequently related to what happened yesterday.

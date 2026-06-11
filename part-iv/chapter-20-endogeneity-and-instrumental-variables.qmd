@@ -3,8 +3,6 @@ title: "20. Endogeneity"
 description: "Understanding omitted variable bias, reverse causality, measurement error, and the logic of instrumental variables."
 ---
 
-# 20. Endogeneity
-
 ## Purpose
 
 Regression analysis is often used to estimate the effect of one variable on another. However, obtaining a statistically significant coefficient does not necessarily mean that the estimated relationship is causal.

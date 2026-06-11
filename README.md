@@ -25,7 +25,7 @@ using Python.
 | Part IV. Econometric Problems | Heteroskedasticity, autocorrelation, multicollinearity, endogeneity, and diagnostics |
 | Part V. Machine Learning | Prediction, train-test splits, trees, random forests, boosting, and feature importance |
 | Part VI. Empirical Project | Research questions, data sections, methodology, results, and final project writing |
-| Appendices | Formula sheet, Python code guide, exam practice, project checklist, and dataset integrity |
+| Appendices | Formula sheet, Python code guide, project checklist, and dataset integrity |
 
 ## Software
 

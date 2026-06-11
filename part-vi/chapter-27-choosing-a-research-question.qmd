@@ -21,7 +21,7 @@ jupyter: python3
 Every empirical project begins with a question. A good research question gives direction to the data section, the methodology, the regression model, and the interpretation of results. In applied econometrics, the objective is not to answer every possible question. The objective is to answer one important question clearly using data.
 
 ::: {.callout-tip}
-For the full empirical project checklist, see [Appendix D. Project Checklist](../appendices/appendix-d-project-checklist.qmd).
+For the full empirical project checklist, see [Appendix C. Project Checklist](../appendices/appendix-c-project-checklist.qmd).
 :::
 
 This chapter explains how to transform a broad topic into a focused empirical research question suitable for a semester project.

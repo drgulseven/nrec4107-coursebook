@@ -6,8 +6,6 @@ format:
     toc-depth: 3
 ---
 
-# 10. Simple Regression
-
 ```{python}
 #| label: setup
 #| include: false

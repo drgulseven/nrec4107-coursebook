@@ -6,8 +6,6 @@ format:
     toc-depth: 3
 ---
 
-# 11. Hypothesis Testing
-
 ```{python}
 #| label: setup
 #| include: false

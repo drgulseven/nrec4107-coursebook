@@ -6,8 +6,6 @@ format:
     toc-depth: 3
 ---
 
-# 16. Model Selection
-
 ```{python}
 #| label: setup
 #| include: false

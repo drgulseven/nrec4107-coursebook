@@ -25,7 +25,7 @@ Data cleaning is part of empirical work. It is not a minor technical step. Bad c
 The attached dataset has **258 observations** and **11 variables**.
 
 ::: {.callout-tip}
-For dataset verification and cleaning documentation, see [Appendix E. Dataset Integrity](../appendices/appendix-e-dataset-integrity.qmd).
+For dataset verification and cleaning documentation, see [Appendix D. Dataset Integrity](../appendices/appendix-d-dataset-integrity.qmd).
 :::
 
 ## Applied question

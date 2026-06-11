@@ -130,28 +130,26 @@ website:
             href: appendices/appendix-a-formula-sheet.qmd
           - text: "B. Python Code Guide"
             href: appendices/appendix-b-python-code-guide.qmd
-          - text: "C. Exam Practice"
-            href: appendices/appendix-c-exam-practice.qmd
-          - text: "D. Project Checklist"
-            href: appendices/appendix-d-project-checklist.qmd
-          - text: "E. Dataset Integrity"
-            href: appendices/appendix-e-dataset-integrity.qmd
+          - text: "C. Project Checklist"
+            href: appendices/appendix-c-project-checklist.qmd
+          - text: "D. Dataset Integrity"
+            href: appendices/appendix-d-dataset-integrity.qmd
 
   navbar:
     left:
       - text: "Home"
         href: index.qmd
-      - text: "Part I. Data and Python"
+      - text: "Part I"
         href: part-i/part-i-data-python.qmd
-      - text: "Part II. Visualization"
+      - text: "Part II"
         href: part-ii/part-ii-eda-visualization.qmd
-      - text: "Part III. Regression"
+      - text: "Part III"
         href: part-iii/part-iii-regression.qmd
-      - text: "Part IV. Econometric Problems"
+      - text: "Part IV"
         href: part-iv/part-iv-econometric-pitfalls.qmd
-      - text: "Part V. Machine Learning"
+      - text: "Part V"
         href: part-v/part-v-prediction-machine-learning.qmd
-      - text: "Part VI. Empirical Project"
+      - text: "Part VI"
         href: part-vi/part-vi-student-empirical-project.qmd
       - text: "Appendices"
         href: appendices/index.qmd

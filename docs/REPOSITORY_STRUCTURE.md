@@ -13,7 +13,7 @@ This document summarizes the intended structure of the NREC4107 Quarto courseboo
 | `part-iv/` | Part IV chapters on econometric problems and diagnostics. |
 | `part-v/` | Part V chapters on prediction and machine learning extensions. |
 | `part-vi/` | Part VI chapters on the empirical project. |
-| `appendices/` | Formula sheet, Python code guide, exam practice, project checklist, and dataset integrity appendix. |
+| `appendices/` | Formula sheet, Python code guide, project checklist, and dataset integrity appendix. |
 | `data/` | Shared teaching dataset. The preferred source of truth is `data/Milk_Data_S2025n.csv`. |
 | `figures/` | Shared figure assets used by the website. |
 | `docs/` | Repository review reports and publication documentation. |

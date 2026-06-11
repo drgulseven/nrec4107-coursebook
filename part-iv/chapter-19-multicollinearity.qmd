@@ -3,8 +3,6 @@ title: "19. Multicollinearity"
 description: "Understanding highly correlated regressors, inflated standard errors, and variance inflation factors."
 ---
 
-# 19. Multicollinearity
-
 ::: {.callout-tip}
 For VIF interpretation, see [Appendix A. Formula Sheet](../appendices/appendix-a-formula-sheet.qmd).
 :::

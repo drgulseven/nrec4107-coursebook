@@ -3,7 +3,7 @@
 ## v1.0.0
 
 - Added the complete six-part NREC4107 coursebook structure.
-- Added appendices for formulas, Python code, exam practice, project checks, and dataset integrity.
+- Added appendices for formulas, Python code, project checks, and dataset integrity.
 - Included Python examples for data analysis, visualization, regression, diagnostics, prediction, and machine learning basics.
 - Covered core regression topics including simple regression, multiple regression, hypothesis testing, functional forms, dummy variables, and model selection.
 - Added econometric diagnostics for heteroskedasticity, autocorrelation, multicollinearity, endogeneity, and model credibility.

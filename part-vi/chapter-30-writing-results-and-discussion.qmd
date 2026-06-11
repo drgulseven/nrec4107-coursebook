@@ -21,7 +21,7 @@ jupyter: python3
 The results and discussion section is where empirical evidence becomes an economic argument. A good results section interprets coefficients, evaluates statistical and economic significance, and connects the findings to the research question.
 
 ::: {.callout-tip}
-For exam-style interpretation practice, see [Appendix C. Exam Practice](../appendices/appendix-c-exam-practice.qmd).
+For final project interpretation checks, see [Appendix C. Project Checklist](../appendices/appendix-c-project-checklist.qmd).
 :::
 
 ![](figures/chapter-30-results-interpretation.svg){fig-alt="Flow from regression output to economic meaning."}

@@ -21,7 +21,7 @@ jupyter: python3
 The data section tells the reader what data were used, where the data came from, how the variables were defined, and whether the sample has limitations. A good data section gives enough information for another researcher to understand and evaluate the analysis.
 
 ::: {.callout-tip}
-For dataset integrity requirements, see [Appendix E. Dataset Integrity](../appendices/appendix-e-dataset-integrity.qmd).
+For dataset integrity requirements, see [Appendix D. Dataset Integrity](../appendices/appendix-d-dataset-integrity.qmd).
 :::
 
 ![](figures/chapter-28-data-section-flow.svg){fig-alt="Flow for writing a data section: source, sample, variables, cleaning, limitations."}

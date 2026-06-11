@@ -16,8 +16,6 @@ execute:
 
 {{< include styles/part-v-navigation.html >}}
 
-# Part V. Machine Learning
-
 This part introduces prediction and machine learning for students of applied econometrics. The purpose is not to turn the course into a data science textbook. The purpose is to help students understand how prediction differs from explanation, how models are evaluated on unseen data, and why machine learning results must be interpreted carefully in economics.
 
 The central message is simple:

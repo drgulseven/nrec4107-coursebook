@@ -21,7 +21,7 @@ jupyter: python3
 This final chapter provides a complete template for the student empirical article. By this stage, students should have a research question, a dataset, a methodology, results, tables, graphs, and appendices.
 
 ::: {.callout-tip}
-For final project submission checks, see [Appendix D. Project Checklist](../appendices/appendix-d-project-checklist.qmd).
+For final project submission checks, see [Appendix C. Project Checklist](../appendices/appendix-c-project-checklist.qmd).
 :::
 
 ![](figures/chapter-32-article-structure.svg){fig-alt="Structure of a final empirical article."}

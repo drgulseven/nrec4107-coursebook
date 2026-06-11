@@ -3,8 +3,6 @@ title: "17. Heteroskedasticity"
 description: "Detecting non-constant error variance and correcting inference using robust standard errors."
 ---
 
-# 17. Heteroskedasticity
-
 ::: {.callout-tip}
 For Breusch-Pagan and robust standard error reminders, see [Appendix A. Formula Sheet](../appendices/appendix-a-formula-sheet.qmd).
 :::

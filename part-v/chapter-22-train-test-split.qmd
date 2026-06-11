@@ -21,8 +21,6 @@ import pandas as pd
 milk_data = pd.read_csv("Milk_Data_S2025n.csv")
 ```
 
-# 22. Train Test Split
-
 ::: {.callout-tip}
 For train-test split and prediction code templates, see [Appendix B. Python Code Guide](../appendices/appendix-b-python-code-guide.qmd).
 :::

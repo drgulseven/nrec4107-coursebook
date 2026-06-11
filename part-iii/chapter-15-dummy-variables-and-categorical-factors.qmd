@@ -6,8 +6,6 @@ format:
     toc-depth: 3
 ---
 
-# 15. Dummy Variables
-
 ```{python}
 #| label: setup
 #| include: false

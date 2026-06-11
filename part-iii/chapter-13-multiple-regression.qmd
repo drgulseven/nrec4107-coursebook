@@ -6,8 +6,6 @@ format:
     toc-depth: 3
 ---
 
-# 13. Multiple Regression
-
 ```{python}
 #| label: setup
 #| include: false
