@@ -148,7 +148,7 @@ $$
 \ln(Y_i) = \beta_0 + \beta_1X_i + u_i
 $$
 
-A one-unit increase in \(X\) is associated with approximately \(100\beta_1\) percent change in \(Y\).
+A one-unit increase in \(X\) is associated with approximately \(100 \times \beta_1\) percent change in \(Y\).
 
 **Linear-log interpretation**
 
@@ -156,7 +156,7 @@ $$
 Y_i = \beta_0 + \beta_1\ln(X_i) + u_i
 $$
 
-A 1 percent increase in \(X\) is associated with approximately \(\beta_1/100\) unit change in \(Y\).
+A 1 percent increase in \(X\) is associated with approximately \(\beta_1 / 100\) unit change in \(Y\).
 
 **Log-log elasticity interpretation**
 
@@ -182,7 +182,7 @@ $$
 \frac{\partial Y_i}{\partial X_i} = \beta_1 + \beta_3D_i
 $$
 
-\(\beta_3\) shows how the slope of \(X\) differs when \(D=1\).
+\(\beta_3\) shows how the slope of \(X\) differs when \(D = 1\).
 
 ## Diagnostics
 
