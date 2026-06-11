@@ -1,0 +1,323 @@
+---
+title: "18. Autocorrelation"
+description: "Detecting serially correlated errors and correcting inference using Newey-West standard errors."
+---
+
+# 18. Autocorrelation
+
+## Purpose
+
+Many economic datasets are collected over time. Examples include food prices, exchange rates, inflation, GDP, and stock prices. Unlike cross-sectional observations, time-series observations often exhibit persistence. What happens today is frequently related to what happened yesterday.
+
+Regression analysis assumes that error terms are independent from one observation to the next. When this assumption is violated, the model suffers from **autocorrelation**.
+
+In this chapter, we learn what autocorrelation is, why it occurs, how to detect it, and how to improve inference using Newey-West standard errors.
+
+## Applied question
+
+Can monthly wheat prices be explained by a long-term trend?
+
+Suppose we observe monthly wheat prices over several years.
+
+Economic theory suggests that prices may gradually increase over time because of inflation, population growth, and rising production costs.
+
+However, unexpected shocks rarely disappear immediately. If prices are unusually high this month, they may remain above average next month. This persistence often creates autocorrelation.
+
+## Economic background
+
+Many economic variables exhibit momentum.
+
+Examples include:
+
+- food prices
+- housing prices
+- exchange rates
+- inflation
+- agricultural commodity prices
+
+A drought that increases wheat prices today may continue affecting prices for several months. Similarly, a recession that reduces consumer demand today may continue influencing economic activity next quarter.
+
+As a result, regression errors often display patterns over time.
+
+## Key idea
+
+The classical regression model assumes:
+
+\[
+Cov(u_t,u_s)=0
+\]
+
+for all \(t \neq s\).
+
+This means that errors from different time periods are unrelated.
+
+Autocorrelation occurs when errors are correlated across time:
+
+\[
+Cov(u_t,u_{t-1}) \neq 0
+\]
+
+Positive autocorrelation is most common. In this case, positive errors tend to be followed by positive errors and negative errors tend to be followed by negative errors.
+
+## Simulating wheat price data
+
+To illustrate autocorrelation, we create a synthetic monthly wheat price series. The price follows a trend, while shocks persist through time.
+
+```{python}
+import numpy as np
+import pandas as pd
+
+np.random.seed(4107)
+
+n = 120
+time = np.arange(n)
+
+errors = np.zeros(n)
+
+for t in range(1, n):
+    errors[t] = 0.8 * errors[t - 1] + np.random.normal(0, 5)
+
+price = 200 + 0.5 * time + errors
+
+wheat_data = pd.DataFrame({
+    "Month": time,
+    "Price": price
+})
+
+wheat_data.head()
+```
+
+## Visualizing the data
+
+```{python}
+import matplotlib.pyplot as plt
+
+plt.figure(figsize=(10, 5))
+
+plt.plot(
+    wheat_data["Month"],
+    wheat_data["Price"]
+)
+
+plt.xlabel("Month")
+plt.ylabel("Price")
+plt.title("Monthly Wheat Prices")
+
+plt.show()
+```
+
+## Interpretation
+
+The graph shows an upward trend. Notice that prices do not fluctuate randomly around the trend. Instead, periods of high prices tend to cluster together and periods of low prices tend to cluster together.
+
+This persistence is typical of time-series data.
+
+## Estimating the regression
+
+We estimate a simple trend model:
+
+\[
+Price_t = \beta_0 + \beta_1 Time_t + u_t
+\]
+
+```{python}
+import statsmodels.api as sm
+
+X = sm.add_constant(wheat_data["Month"])
+y = wheat_data["Price"]
+
+model = sm.OLS(y, X).fit()
+
+print(model.summary())
+```
+
+## Interpreting the coefficient
+
+Suppose the estimated slope equals 0.52.
+
+The interpretation is:
+
+> On average, wheat prices increase by approximately 0.52 units per month.
+
+The coefficient measures the average trend. However, it does not tell us whether the residuals satisfy the assumptions of the regression model.
+
+## Residual time plot
+
+The first diagnostic is a plot of residuals over time.
+
+```{python}
+residuals = model.resid
+
+plt.figure(figsize=(10, 5))
+
+plt.plot(
+    wheat_data["Month"],
+    residuals
+)
+
+plt.axhline(
+    y=0,
+    linestyle="--"
+)
+
+plt.xlabel("Month")
+plt.ylabel("Residual")
+plt.title("Residuals Through Time")
+
+plt.show()
+```
+
+## Interpretation
+
+If residuals are independent, they should bounce randomly above and below zero. Instead, long runs of positive residuals and long runs of negative residuals appear.
+
+This suggests autocorrelation.
+
+## Residual lag plot
+
+Another useful visualization compares each residual with the previous residual.
+
+```{python}
+plt.figure(figsize=(6, 6))
+
+plt.scatter(
+    residuals[:-1],
+    residuals[1:],
+    alpha=0.7
+)
+
+plt.xlabel("Residual t-1")
+plt.ylabel("Residual t")
+plt.title("Residual Lag Plot")
+
+plt.show()
+```
+
+## Interpretation
+
+If residuals are independent, the points should form a random cloud. A clear upward pattern indicates positive autocorrelation.
+
+Large positive residuals tend to follow large positive residuals. Large negative residuals tend to follow large negative residuals.
+
+## The Durbin-Watson statistic
+
+A commonly used diagnostic is the Durbin-Watson statistic.
+
+```{python}
+from statsmodels.stats.stattools import durbin_watson
+
+dw = durbin_watson(model.resid)
+
+print(dw)
+```
+
+## Interpretation
+
+The Durbin-Watson statistic ranges between 0 and 4.
+
+| Value | Interpretation |
+|---|---|
+| Around 2 | No autocorrelation |
+| Below 2 | Positive autocorrelation |
+| Above 2 | Negative autocorrelation |
+
+In many economic applications, values substantially below 2 indicate positive autocorrelation.
+
+## Why autocorrelation matters
+
+Autocorrelation creates several problems. The most important consequence is unreliable standard errors.
+
+This can lead to:
+
+- confidence intervals that are too narrow
+- incorrect hypothesis tests
+- overstated statistical significance
+- excessive confidence in results
+
+Just as heteroskedasticity affects inference, autocorrelation primarily affects how we evaluate uncertainty.
+
+## Newey-West standard errors
+
+A common solution is to estimate heteroskedasticity and autocorrelation consistent standard errors. These are often called Newey-West standard errors.
+
+```{python}
+nw_model = model.get_robustcov_results(
+    cov_type="HAC",
+    maxlags=4
+)
+
+print(nw_model.summary())
+```
+
+## Comparing standard errors
+
+```{python}
+comparison = pd.DataFrame({
+    "OLS Standard Error": model.bse,
+    "Newey-West Standard Error": nw_model.bse
+})
+
+comparison
+```
+
+## Interpretation
+
+The coefficient estimates remain unchanged. Only the estimated uncertainty changes.
+
+Newey-West standard errors generally provide more reliable inference when residuals are correlated over time.
+
+## Why time-series data require extra care
+
+Cross-sectional observations are often independent. Time-series observations are rarely independent.
+
+Economic shocks frequently persist. Because of this persistence, economists routinely examine autocorrelation whenever they work with time-series data.
+
+Ignoring autocorrelation can make a model appear more precise than it really is.
+
+::: {.callout-warning}
+## Common mistake
+
+A high \(R^2\) does not imply independent residuals. A trend model can fit well and still suffer from strong autocorrelation.
+:::
+
+## Common mistakes
+
+### Mistake 1: Ignoring time order
+
+Time-series observations should never be treated as randomly ordered observations. The sequence matters.
+
+### Mistake 2: Looking only at \(R^2\)
+
+A model can have a high \(R^2\) and still suffer from severe autocorrelation.
+
+### Mistake 3: Assuming large samples solve the problem
+
+Autocorrelation can remain important even in very large datasets.
+
+### Mistake 4: Reporting conventional standard errors
+
+OLS standard errors may underestimate uncertainty when residuals are correlated.
+
+### Mistake 5: Ignoring residual diagnostics
+
+Plots often reveal autocorrelation immediately. Always inspect residual patterns.
+
+## Key takeaways
+
+- Autocorrelation occurs when regression errors are correlated across time.
+- Time-series data frequently exhibit persistence.
+- Residual plots often reveal autocorrelation visually.
+- The Durbin-Watson statistic provides a useful diagnostic.
+- Autocorrelation primarily affects standard errors and inference.
+- Newey-West standard errors often improve reliability.
+- Economic time series require additional diagnostic checks.
+- Credible empirical analysis requires examining residual behavior.
+
+## Looking ahead
+
+Autocorrelation involves relationships among errors across time. In the next chapter, we examine multicollinearity, which occurs when explanatory variables contain similar information.
+
+<div class="chapter-nav">
+  <a href="chapter-17-heteroskedasticity-and-robust-standard-errors.html">← Previous: 17</a>
+  <a href="chapter-19-multicollinearity.html">Next: 19 →</a>
+</div>

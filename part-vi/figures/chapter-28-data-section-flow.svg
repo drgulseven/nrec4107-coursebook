@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420" viewBox="0 0 900 420">
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L9,3 z" fill="#7f8fa6"/></marker></defs>
+<rect width="100%" height="100%" fill="white"/>
+<text x="450.0" y="55" text-anchor="middle" font-family="Arial" font-size="28" font-weight="700" fill="#23395d">Writing the Data Section</text>
+<rect x="70" y="185" width="120" height="70" rx="14" fill="#e8f1fb" stroke="#46627f" stroke-width="2"/>
+<text x="130.0" y="227" text-anchor="middle" font-family="Arial" font-size="16" fill="#23395d">Source</text>
+<line x1="195" y1="220.0" x2="207" y2="220.0" stroke="#7f8fa6" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="215" y="185" width="120" height="70" rx="14" fill="#f7efe8" stroke="#46627f" stroke-width="2"/>
+<text x="275.0" y="227" text-anchor="middle" font-family="Arial" font-size="16" fill="#23395d">Sample</text>
+<line x1="340" y1="220.0" x2="352" y2="220.0" stroke="#7f8fa6" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="360" y="185" width="120" height="70" rx="14" fill="#eef7ee" stroke="#46627f" stroke-width="2"/>
+<text x="420.0" y="227" text-anchor="middle" font-family="Arial" font-size="16" fill="#23395d">Variables</text>
+<line x1="485" y1="220.0" x2="497" y2="220.0" stroke="#7f8fa6" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="505" y="185" width="120" height="70" rx="14" fill="#f8f3db" stroke="#46627f" stroke-width="2"/>
+<text x="565.0" y="227" text-anchor="middle" font-family="Arial" font-size="16" fill="#23395d">Cleaning</text>
+<line x1="630" y1="220.0" x2="642" y2="220.0" stroke="#7f8fa6" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="650" y="185" width="120" height="70" rx="14" fill="#f1edf9" stroke="#46627f" stroke-width="2"/>
+<text x="710.0" y="227" text-anchor="middle" font-family="Arial" font-size="16" fill="#23395d">Limits</text>
+<text x="450" y="340" text-anchor="middle" font-family="Arial" font-size="15" fill="#5f6f82">NREC4107 Applied Intermediate Econometrics</text>
+</svg>

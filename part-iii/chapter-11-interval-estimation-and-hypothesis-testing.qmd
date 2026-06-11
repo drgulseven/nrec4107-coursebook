@@ -1,0 +1,172 @@
+---
+title: "11. Hypothesis Testing"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+# 11. Hypothesis Testing
+
+```{python}
+#| label: setup
+#| include: false
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+from sklearn.metrics import mean_absolute_error
+try:
+    from sklearn.metrics import root_mean_squared_error
+except ImportError:
+    from sklearn.metrics import mean_squared_error
+    def root_mean_squared_error(y_true, y_pred):
+        return mean_squared_error(y_true, y_pred, squared=False)
+
+milk_data = pd.read_csv("Milk_Data_S2025n.csv")
+if "Volume" not in milk_data.columns:
+    milk_data["Volume"] = milk_data["Size"] * milk_data["Pieces"]
+milk_data["Volume1000"] = milk_data["Volume"] / 1000
+milk_data["Size1000"] = milk_data["Size"] / 1000
+```
+
+::: {.callout-tip}
+For t-tests, confidence intervals, and p-value rules, see [Appendix A. Formula Sheet](../appendices/appendix-a-formula-sheet.qmd).
+:::
+
+## Purpose
+
+Chapter 10 estimated a simple regression model relating milk prices to package volume. The slope coefficient was 417.0, but any sample estimate contains uncertainty. This chapter introduces standard errors, confidence intervals, and hypothesis tests using the actual Milk Data results.
+
+## Applied Question
+
+In Chapter 10 we estimated:
+
+$$
+\widehat{Price}=516.6+417.0\times Volume1000
+$$
+
+> Is this relationship statistically significant?
+
+## Estimating the Model
+
+```{python}
+X = sm.add_constant(milk_data["Volume1000"])
+y = milk_data["Price"]
+model = sm.OLS(y, X).fit()
+print(model.summary())
+```
+
+## Point Estimate
+
+The point estimate for the volume coefficient is:
+
+$$
+\hat{\beta}_1 = 417.0
+$$
+
+This is our best estimate of the average relationship between package volume and price.
+
+## Confidence Interval
+
+The 95% confidence interval for the volume coefficient is:
+
+$$
+333.45 \leq \beta_1 \leq 500.60
+$$
+
+Interpretation:
+
+> The data suggest that the true effect of a 1,000 ml increase in volume is likely to lie between approximately 333 and 501 price units.
+
+```{python}
+model.conf_int()
+```
+
+## Standard Errors
+
+A standard error measures the precision of an estimate. Small standard errors imply greater precision. Confidence intervals and hypothesis tests are built from standard errors.
+
+```{python}
+model.bse
+```
+
+## Hypothesis Testing
+
+The null hypothesis is:
+
+$$
+H_0:\beta_1=0
+$$
+
+The alternative hypothesis is:
+
+$$
+H_1:\beta_1\neq 0
+$$
+
+The p-value for the volume coefficient is:
+
+```text
+p < 0.001
+```
+
+```{python}
+model.pvalues
+```
+
+Because the p-value is below 0.05, we reject the null hypothesis.
+
+## Confidence Intervals and Significance
+
+The confidence interval does not include zero. This agrees with the p-value result. The relationship between volume and price is statistically significant.
+
+## Statistical Significance Versus Economic Significance
+
+Statistical significance asks whether the relationship is likely to be real. Economic significance asks whether the magnitude is large enough to matter.
+
+The Milk Data coefficient of 417.0 is meaningful because a 1,000 ml increase in package volume is associated with a sizeable increase in price.
+
+::: {.callout-warning}
+A statistically significant coefficient is not automatically a causal effect.
+:::
+
+## What We Learned From the Milk Data
+
+- Estimated coefficient: 417.0
+- 95% confidence interval: [333.45, 500.60]
+- p-value: < 0.001
+
+The evidence supporting a positive relationship between volume and price is very strong.
+
+## Common Mistakes
+
+::: {.callout-warning}
+### Common Mistake 1
+Treating p-values as measures of economic importance.
+:::
+
+::: {.callout-warning}
+### Common Mistake 2
+Ignoring confidence intervals.
+:::
+
+::: {.callout-warning}
+### Common Mistake 3
+Confusing statistical significance with causality.
+:::
+
+## Key Takeaways
+
+- Regression estimates contain uncertainty.
+- Confidence intervals provide a range of plausible values.
+- The estimated volume coefficient is 417.0.
+- The 95% confidence interval is [333.45, 500.60].
+- The p-value is below 0.001.
+- Economists should interpret coefficients before focusing on p-values.
+
+| Navigation |
+|------------|
+| [← 10. Simple Regression](chapter-10-simple-linear-regression.qmd) \| [Part III Home](part-iii-regression.qmd) \| [12. Prediction and Fit →](chapter-12-prediction-and-goodness-of-fit.qmd) |

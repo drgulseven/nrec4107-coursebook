@@ -1,0 +1,202 @@
+---
+title: "A. Formula Sheet"
+---
+
+# A. Formula Sheet
+
+::: {.callout-note}
+Use this sheet for quick review. Focus on interpretation first, then calculation.
+:::
+
+## Descriptive Statistics
+
+**Mean**
+
+\[
+\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i
+\]
+
+Average value of a variable.
+
+**Variance**
+
+\[
+s^2 = \frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar{x})^2
+\]
+
+Average squared distance from the mean.
+
+**Standard deviation**
+
+\[
+s = \sqrt{s^2}
+\]
+
+Typical distance from the mean.
+
+**Correlation**
+
+\[
+r_{xy} = \frac{cov(x,y)}{s_xs_y}
+\]
+
+Measures linear association from -1 to 1. Correlation is not causation.
+
+## Regression
+
+**Simple regression**
+
+\[
+Y_i = \beta_0 + \beta_1X_i + u_i
+\]
+
+\(\beta_1\) is the expected change in \(Y\) for a one-unit increase in \(X\).
+
+**Multiple regression**
+
+\[
+Y_i = \beta_0 + \beta_1X_{1i} + \beta_2X_{2i} + ... + u_i
+\]
+
+Each coefficient is interpreted holding the other included variables constant.
+
+**Residual**
+
+\[
+\hat{u}_i = Y_i - \hat{Y}_i
+\]
+
+Difference between actual and predicted value.
+
+**R-squared**
+
+\[
+R^2 = 1 - \frac{SSR}{SST}
+\]
+
+Share of variation in \(Y\) explained by the model.
+
+**Adjusted R-squared**
+
+\[
+\bar{R}^2 = 1 - (1-R^2)\frac{n-1}{n-k-1}
+\]
+
+Penalizes adding extra variables that do not improve the model enough.
+
+## Inference
+
+**t-statistic**
+
+\[
+t = \frac{\hat{\beta}_j - \beta_{j,0}}{SE(\hat{\beta}_j)}
+\]
+
+Used to test whether a coefficient differs from a hypothesized value.
+
+**Confidence interval**
+
+\[
+\hat{\beta}_j \pm t^* SE(\hat{\beta}_j)
+\]
+
+Range of plausible values for the coefficient.
+
+**p-value rule**
+
+If \(p < 0.05\), reject the null hypothesis at the 5 percent level. Always interpret economic meaning too.
+
+**F-test logic**
+
+Tests whether a group of variables is jointly useful.
+
+\[
+H_0: \beta_1 = \beta_2 = ... = 0
+\]
+
+Rejecting \(H_0\) means the variables are jointly significant.
+
+## Prediction Accuracy
+
+**MAE**
+
+\[
+MAE = \frac{1}{n}\sum_{i=1}^{n}|Y_i - \hat{Y}_i|
+\]
+
+Average absolute prediction error.
+
+**MSE**
+
+\[
+MSE = \frac{1}{n}\sum_{i=1}^{n}(Y_i - \hat{Y}_i)^2
+\]
+
+Average squared prediction error.
+
+**RMSE**
+
+\[
+RMSE = \sqrt{MSE}
+\]
+
+Typical prediction error in the units of \(Y\).
+
+## Functional Forms
+
+**Log-linear interpretation**
+
+\[
+\ln(Y_i) = \beta_0 + \beta_1X_i + u_i
+\]
+
+A one-unit increase in \(X\) is associated with approximately \(100\beta_1\) percent change in \(Y\).
+
+**Linear-log interpretation**
+
+\[
+Y_i = \beta_0 + \beta_1\ln(X_i) + u_i
+\]
+
+A 1 percent increase in \(X\) is associated with approximately \(\beta_1/100\) unit change in \(Y\).
+
+**Log-log elasticity interpretation**
+
+\[
+\ln(Y_i) = \beta_0 + \beta_1\ln(X_i) + u_i
+\]
+
+\(\beta_1\) is an elasticity. A 1 percent increase in \(X\) is associated with a \(\beta_1\) percent change in \(Y\).
+
+## Categorical Variables
+
+**Dummy variable interpretation**
+
+The coefficient compares the included category to the omitted reference category, holding other variables constant.
+
+**Interaction term interpretation**
+
+\[
+Y_i = \beta_0 + \beta_1X_i + \beta_2D_i + \beta_3(X_iD_i) + u_i
+\]
+
+\(\beta_3\) shows how the slope of \(X\) differs when \(D=1\).
+
+## Diagnostics
+
+**VIF rule of thumb**
+
+VIF above 5 suggests possible multicollinearity. VIF above 10 is often treated as serious.
+
+**Durbin-Watson interpretation**
+
+Values near 2 suggest little autocorrelation. Values far below 2 suggest positive autocorrelation.
+
+**Breusch-Pagan interpretation**
+
+Tests for heteroskedasticity. A small p-value suggests nonconstant error variance.
+
+**Ramsey RESET interpretation**
+
+Tests for possible functional form problems. A small p-value suggests the model may be misspecified.
+

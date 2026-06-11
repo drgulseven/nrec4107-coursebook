@@ -1,0 +1,259 @@
+---
+title: "B. Python Code Guide"
+---
+
+# B. Python Code Guide
+
+::: {.callout-tip}
+These examples are meant to be copied and adapted. Replace variable names only after checking your dataset columns.
+:::
+
+## Import Libraries
+
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+
+from statsmodels.stats.diagnostic import het_breuschpagan, linear_reset
+from statsmodels.stats.stattools import durbin_watson
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+```
+
+## Load the Milk Dataset
+
+```python
+data_path = "../data/Milk_Data_S2025n.csv"
+milk_data = pd.read_csv(data_path)
+```
+
+## Inspect the Dataset
+
+```python
+print(milk_data.shape)
+print(milk_data.columns)
+print(milk_data.head())
+print(milk_data.info())
+```
+
+## Check Missing Values
+
+```python
+missing_report = milk_data.isna().sum()
+print(missing_report)
+```
+
+## Create Volume and Unit Price
+
+```python
+# Create Volume only if it is not already in the dataset.
+if "Volume" not in milk_data.columns:
+    milk_data["Volume"] = milk_data["Size"] * milk_data["Pieces"]
+
+# Avoid division by zero.
+milk_data = milk_data[milk_data["Volume"] > 0].copy()
+milk_data["Unit_Price"] = milk_data["Price"] / milk_data["Volume"]
+```
+
+## Convert Categorical Variables
+
+```python
+categorical_cols = ["Location", "Type", "Brand", "Fat", "Fresh", "Package", "Flavor"]
+
+for col in categorical_cols:
+    if col in milk_data.columns:
+        milk_data[col] = milk_data[col].astype("category")
+```
+
+## Summary Statistics
+
+```python
+numeric_cols = ["Price", "Size", "Pieces", "Volume", "Unit_Price"]
+available_numeric = [col for col in numeric_cols if col in milk_data.columns]
+
+summary_stats = milk_data[available_numeric].describe()
+print(summary_stats)
+```
+
+## Frequency Tables
+
+```python
+for col in ["Brand", "Type", "Fat", "Package"]:
+    if col in milk_data.columns:
+        print("\n", col)
+        print(milk_data[col].value_counts(dropna=False))
+```
+
+## Histogram
+
+```python
+plt.hist(milk_data["Price"].dropna(), bins=15)
+plt.xlabel("Price")
+plt.ylabel("Frequency")
+plt.title("Distribution of Milk Prices")
+plt.show()
+```
+
+## Scatter Plot
+
+```python
+plt.scatter(milk_data["Volume"], milk_data["Price"], alpha=0.6)
+plt.xlabel("Volume")
+plt.ylabel("Price")
+plt.title("Price and Volume")
+plt.show()
+```
+
+## Box Plot
+
+```python
+milk_data.boxplot(column="Price", by="Package")
+plt.xlabel("Package")
+plt.ylabel("Price")
+plt.title("Price by Package Type")
+plt.suptitle("")
+plt.show()
+```
+
+## Correlation Heatmap
+
+```python
+corr_cols = ["Price", "Size", "Pieces", "Volume", "Unit_Price"]
+available_corr = [col for col in corr_cols if col in milk_data.columns]
+
+corr_matrix = milk_data[available_corr].corr()
+
+plt.imshow(corr_matrix, cmap="coolwarm", vmin=-1, vmax=1)
+plt.colorbar(label="Correlation")
+plt.xticks(range(len(available_corr)), available_corr, rotation=45)
+plt.yticks(range(len(available_corr)), available_corr)
+plt.title("Correlation Heatmap")
+plt.tight_layout()
+plt.show()
+```
+
+## Simple OLS with statsmodels
+
+```python
+analysis_data = milk_data.dropna(subset=["Price", "Volume"]).copy()
+
+X = sm.add_constant(analysis_data[["Volume"]])
+y = analysis_data["Price"]
+
+simple_model = sm.OLS(y, X).fit()
+print(simple_model.summary())
+```
+
+## Multiple OLS with Categorical Variables
+
+```python
+analysis_data = milk_data.dropna(
+    subset=["Price", "Volume", "Size", "Pieces", "Package", "Fat"]
+).copy()
+
+model = smf.ols(
+    formula="Price ~ Volume + Size + Pieces + C(Package) + C(Fat)",
+    data=analysis_data
+).fit()
+
+print(model.summary())
+```
+
+## Robust Standard Errors
+
+```python
+robust_model = model.get_robustcov_results(cov_type="HC1")
+print(robust_model.summary())
+```
+
+## Breusch-Pagan Test
+
+```python
+bp_test = het_breuschpagan(model.resid, model.model.exog)
+
+bp_results = pd.Series(
+    bp_test,
+    index=["LM statistic", "LM p-value", "F statistic", "F p-value"]
+)
+
+print(bp_results)
+```
+
+## Durbin-Watson Statistic
+
+```python
+dw_stat = durbin_watson(model.resid)
+print("Durbin-Watson:", round(dw_stat, 3))
+```
+
+## Ramsey RESET Test
+
+```python
+reset_test = linear_reset(model, power=2, use_f=True)
+print(reset_test)
+```
+
+## Train-Test Split
+
+```python
+features = ["Volume", "Size", "Pieces"]
+analysis_data = milk_data.dropna(subset=["Price"] + features).copy()
+
+X = analysis_data[features]
+y = analysis_data["Price"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.20,
+    random_state=4107
+)
+```
+
+## Random Forest Prediction
+
+```python
+rf_model = RandomForestRegressor(
+    n_estimators=200,
+    random_state=4107
+)
+
+rf_model.fit(X_train, y_train)
+rf_predictions = rf_model.predict(X_test)
+
+mae = mean_absolute_error(y_test, rf_predictions)
+mse = mean_squared_error(y_test, rf_predictions)
+rmse = mse ** 0.5
+r2 = r2_score(y_test, rf_predictions)
+
+print("MAE:", round(mae, 3))
+print("RMSE:", round(rmse, 3))
+print("R2:", round(r2, 3))
+```
+
+## Logs with Nonpositive Values Removed
+
+```python
+log_data = milk_data.dropna(subset=["Price", "Volume"]).copy()
+log_data = log_data[(log_data["Price"] > 0) & (log_data["Volume"] > 0)].copy()
+
+log_data["log_price"] = np.log(log_data["Price"])
+log_data["log_volume"] = np.log(log_data["Volume"])
+
+log_model = smf.ols("log_price ~ log_volume", data=log_data).fit()
+print(log_model.summary())
+```
+
+## Export Cleaned Data
+
+```python
+output_path = "milk_data_cleaned.csv"
+milk_data.to_csv(output_path, index=False)
+print("Saved:", output_path)
+```
+

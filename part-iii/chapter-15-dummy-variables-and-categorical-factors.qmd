@@ -1,0 +1,196 @@
+---
+title: "15. Dummy Variables"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+# 15. Dummy Variables
+
+```{python}
+#| label: setup
+#| include: false
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+from sklearn.metrics import mean_absolute_error
+try:
+    from sklearn.metrics import root_mean_squared_error
+except ImportError:
+    from sklearn.metrics import mean_squared_error
+    def root_mean_squared_error(y_true, y_pred):
+        return mean_squared_error(y_true, y_pred, squared=False)
+
+milk_data = pd.read_csv("Milk_Data_S2025n.csv")
+if "Volume" not in milk_data.columns:
+    milk_data["Volume"] = milk_data["Size"] * milk_data["Pieces"]
+milk_data["Volume1000"] = milk_data["Volume"] / 1000
+milk_data["Size1000"] = milk_data["Size"] / 1000
+```
+
+## Purpose
+
+Many product characteristics are qualitative rather than numerical. Brand, fat content, package type, location, and flavor cannot enter regression directly unless they are converted into numerical form. Dummy variables solve this problem.
+
+This chapter uses the actual Milk Data dataset to estimate how brand and fat content are associated with milk prices after controlling for package volume.
+
+## Applied Question
+
+> Do brand and fat content help explain milk prices after controlling for package volume?
+
+## What Is a Dummy Variable?
+
+A dummy variable takes only two values:
+
+$$
+0 \quad \text{or} \quad 1
+$$
+
+It indicates whether a characteristic is absent or present.
+
+## Reference Categories
+
+In this chapter, the reference categories are:
+
+| Variable | Reference Category |
+|---|---|
+| Brand | Almarai |
+| Fat | Full |
+
+All categorical coefficients are interpreted relative to these reference groups.
+
+::: {.callout-note}
+Dummy coefficients are not absolute prices. They are differences relative to the reference category.
+:::
+
+## Regression Model
+
+$$
+Price_i = \beta_0 + \beta_1 Volume1000_i + Brand_i + Fat_i + u_i
+$$
+
+## Python Implementation
+
+```{python}
+model_dummy = smf.ols(
+    'Price ~ Volume1000 + C(Brand, Treatment(reference="Almarai")) + C(Fat, Treatment(reference="Full"))',
+    data=milk_data
+).fit()
+print(model_dummy.summary())
+```
+
+## Actual Regression Results
+
+The regression uses 258 milk products.
+
+$$
+R^2 = 0.490
+$$
+
+$$
+Adjusted\;R^2 = 0.445
+$$
+
+The model explains about 49.0% of the variation in milk prices.
+
+## Main Coefficients
+
+| Variable | Coefficient | Std. Error | p-value |
+|---|---:|---:|---:|
+| Intercept | 317.17 | 115.42 | 0.006 |
+| Volume1000 | 432.75 | 39.55 | <0.001 |
+| Fat: Low | 38.39 | 103.95 | 0.712 |
+| Fat: Other | 589.08 | 152.80 | <0.001 |
+
+## Interpretation of Volume
+
+> Holding brand and fat content constant, a 1,000 ml increase in package volume is associated with an average price increase of about 433 price units.
+
+## Interpreting Fat Coefficients
+
+The reference group is Full fat.
+
+Low-fat products are estimated to be about 38 price units more expensive than full-fat products, but this difference is not statistically significant.
+
+Products in the Other fat category are associated with prices about 589 price units higher than full-fat products, holding volume and brand constant. This result is statistically significant.
+
+## Brand Coefficients
+
+The reference brand is Almarai.
+
+| Brand | Coefficient | Std. Error | p-value |
+|---|---:|---:|---:|
+| Activia | -139.45 | 684.83 | 0.839 |
+| AlAin | 279.40 | 180.43 | 0.123 |
+| AlMudish | -505.35 | 277.58 | 0.070 |
+| AlRawabi | -126.83 | 351.85 | 0.719 |
+| AlSafi | 231.83 | 690.13 | 0.737 |
+| Alpro | 686.69 | 685.32 | 0.317 |
+| Arla | 474.01 | 491.53 | 0.336 |
+| Balade | 145.75 | 351.66 | 0.679 |
+| Hayatna | 21.08 | 402.56 | 0.958 |
+| KDD | 278.07 | 685.25 | 0.685 |
+| Koita | 603.58 | 488.56 | 0.218 |
+| Lacnor | -276.22 | 146.45 | 0.061 |
+| Lulu | -96.71 | 161.22 | 0.549 |
+| Marmum | -242.47 | 350.86 | 0.490 |
+| Mazoon | -203.86 | 145.87 | 0.164 |
+| Nada | -159.29 | 262.21 | 0.544 |
+| Other | 815.98 | 144.86 | <0.001 |
+| Watani | 266.61 | 256.79 | 0.300 |
+
+## Interpreting Brand Effects
+
+Every brand coefficient is interpreted relative to Almarai.
+
+The Other brand group is associated with prices about 816 price units higher than Almarai products, holding volume and fat content constant. This result is statistically significant.
+
+Lacnor products are estimated to be about 276 price units cheaper than Almarai products. This result is marginally significant at the 10% level but not at the 5% level.
+
+AlMudish products are estimated to be about 505 price units cheaper than Almarai products. This result is also marginally significant at the 10% level.
+
+## Important Warning About Small Brand Groups
+
+Some brands appear only a few times in the dataset. Coefficients for small groups should be interpreted cautiously because large standard errors indicate imprecision.
+
+::: {.callout-warning}
+Do not overinterpret dummy coefficients for categories with very few observations.
+:::
+
+## Why R² Increased
+
+The volume-only model had:
+
+$$
+R^2 = 0.274
+$$
+
+After adding brand and fat:
+
+$$
+R^2 = 0.490
+$$
+
+Brand and fat content contain useful economic information.
+
+## The Dummy Variable Trap
+
+If a categorical variable has \(K\) categories, include only \(K-1\) dummy variables. The omitted category becomes the reference group. Including all categories with an intercept creates perfect multicollinearity.
+
+## Key Takeaways
+
+- Dummy variables allow qualitative characteristics to enter regression models.
+- The reference brand is Almarai.
+- The reference fat category is Full.
+- Holding brand and fat constant, a 1,000 ml increase in volume is associated with a price increase of about 433 units.
+- Adding brand and fat increases R² from 0.274 to 0.490.
+- The Other fat category and Other brand group are statistically significant.
+- Some brand coefficients are imprecise because of small category counts.
+
+| Navigation |
+|------------|
+| [← 14. Functional Forms](chapter-14-functional-forms-and-elasticities.qmd) \| [Part III Home](part-iii-regression.qmd) \| [16. Model Selection →](chapter-16-model-specification-and-f-tests.qmd) |

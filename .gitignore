@@ -1,3 +1,26 @@
+# Local Python environment
 .venv/
+
+# Quarto generated output and local project cache
 _site/
 .quarto/
+/.quarto/
+**/*.quarto_ipynb
+
+# Quarto/Jupyter local caches
+.jupyter/
+.matplotlib/
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# Python cache files
+pycache/
+__pycache__/
+*.pyc
+
+# Development-only package folders
+staging/
+incoming-zips/
+
+# Local macOS files
+.DS_Store

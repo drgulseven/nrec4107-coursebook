@@ -1,0 +1,403 @@
+---
+title: "20. Endogeneity"
+description: "Understanding omitted variable bias, reverse causality, measurement error, and the logic of instrumental variables."
+---
+
+# 20. Endogeneity
+
+## Purpose
+
+Regression analysis is often used to estimate the effect of one variable on another. However, obtaining a statistically significant coefficient does not necessarily mean that the estimated relationship is causal.
+
+One of the most serious challenges in applied econometrics is **endogeneity**. Endogeneity occurs when an explanatory variable is correlated with the error term. When this happens, the estimated coefficients may be biased and misleading.
+
+In this chapter, we learn what endogeneity is, why it occurs, and how economists use instrumental variables to address the problem.
+
+## Applied question
+
+Does education increase earnings?
+
+Suppose we estimate the following relationship:
+
+\[
+Income_i =
+\beta_0 +
+\beta_1 Education_i +
+u_i
+\]
+
+where income represents annual earnings and education represents years of schooling.
+
+Most people expect education to increase earnings. However, individuals differ in many ways that are difficult to observe.
+
+Some individuals may have:
+
+- greater motivation
+- better problem-solving skills
+- higher natural ability
+- stronger family support
+
+These factors may influence both education and earnings. As a result, the estimated relationship between education and income may not reflect the true causal effect of education.
+
+## Economic background
+
+Economists are often interested in causal questions.
+
+Examples include:
+
+- Does education increase income?
+- Does fertilizer increase crop yield?
+- Does advertising increase sales?
+- Does foreign aid promote economic growth?
+- Does trade liberalization increase exports?
+
+Simple correlations rarely provide convincing answers. The challenge is that many economic variables influence one another simultaneously.
+
+As a result, causal interpretation requires caution.
+
+## Key idea
+
+The classical regression model assumes:
+
+\[
+Cov(X,u)=0
+\]
+
+This means that the explanatory variable is unrelated to the error term.
+
+Endogeneity occurs when:
+
+\[
+Cov(X,u)\neq0
+\]
+
+When this assumption fails, OLS estimates become biased.
+
+Unlike heteroskedasticity or multicollinearity, endogeneity threatens the validity of the coefficient estimate itself.
+
+## A simple example
+
+Suppose we estimate:
+
+\[
+Income_i =
+\beta_0 +
+\beta_1 Education_i +
+u_i
+\]
+
+The error term contains many omitted factors:
+
+- ability
+- motivation
+- family background
+- social networks
+
+Suppose more able individuals obtain more education.
+
+Ability therefore affects education and income. Ability enters the error term because it is unobserved.
+
+Consequently:
+
+\[
+Cov(Education,u)\neq0
+\]
+
+The OLS estimate is biased.
+
+## Understanding omitted variable bias
+
+Omitted variable bias occurs when three conditions hold:
+
+1. A relevant variable is omitted.
+2. The omitted variable affects the dependent variable.
+3. The omitted variable is correlated with an explanatory variable.
+
+In our example:
+
+| Variable | Affects education? | Affects income? |
+|---|---|---|
+| Ability | Yes | Yes |
+
+Because ability satisfies both conditions, it creates bias.
+
+## Visualizing the problem
+
+A simple causal diagram helps clarify the issue.
+
+```text
+Ability
+   ↘
+    ↘
+ Education → Income
+    ↗
+   ↗
+ Family Background
+```
+
+## Interpretation
+
+Education influences income. However, ability and family background influence both education and income.
+
+If these variables are omitted, the estimated effect of education captures more than education alone.
+
+## Simulating endogeneity
+
+We create a dataset where ability affects both education and income.
+
+```{python}
+import numpy as np
+import pandas as pd
+
+np.random.seed(4107)
+
+n = 500
+
+ability = np.random.normal(0, 1, n)
+
+education = (
+    12
+    + 2 * ability
+    + np.random.normal(0, 1, n)
+)
+
+income = (
+    20000
+    + 3000 * education
+    + 5000 * ability
+    + np.random.normal(0, 3000, n)
+)
+
+data = pd.DataFrame({
+    "Income": income,
+    "Education": education,
+    "Ability": ability
+})
+
+data.head()
+```
+
+## Estimating the naive model
+
+Suppose ability is unobserved. We estimate:
+
+\[
+Income_i=
+\beta_0+
+\beta_1 Education_i+
+u_i
+\]
+
+```{python}
+import statsmodels.api as sm
+
+X = sm.add_constant(data["Education"])
+
+y = data["Income"]
+
+ols_model = sm.OLS(y, X).fit()
+
+print(ols_model.summary())
+```
+
+## Interpretation
+
+The coefficient on education may appear large and highly significant.
+
+However, the estimate includes both the effect of education and the effect of ability. The coefficient is biased upward.
+
+## Why endogeneity is serious
+
+Consider the problems studied previously.
+
+| Problem | Main consequence |
+|---|---|
+| Heteroskedasticity | Standard errors become unreliable |
+| Autocorrelation | Standard errors become unreliable |
+| Multicollinearity | Precision declines |
+| Endogeneity | The coefficient itself may be wrong |
+
+This is why endogeneity is often considered the most serious problem in applied econometrics.
+
+## Simultaneity
+
+Endogeneity can also arise through reverse causality.
+
+Consider:
+
+\[
+Sales=f(Advertising)
+\]
+
+Firms often increase advertising when sales rise.
+
+Thus:
+
+- advertising affects sales
+- sales affect advertising
+
+Both variables influence each other simultaneously. OLS struggles to separate cause from effect.
+
+## Measurement error
+
+Another source of endogeneity is measurement error.
+
+Suppose farmers report fertilizer use incorrectly. If explanatory variables are measured with error, coefficient estimates may become biased.
+
+Measurement error is common in surveys and self-reported data.
+
+## Instrumental variables
+
+Economists often use instrumental variables to address endogeneity.
+
+An instrument is a variable that:
+
+1. affects the endogenous explanatory variable
+2. does not directly affect the dependent variable
+
+## Example instrument
+
+Suppose we want to estimate the effect of education on income.
+
+A possible instrument might be distance to the nearest university.
+
+Distance affects educational attainment. However, distance should not directly determine future earnings once education is accounted for.
+
+The logic is:
+
+```text
+Distance to University
+          ↓
+      Education
+          ↓
+        Income
+```
+
+## Requirements for a good instrument
+
+A valid instrument must satisfy two conditions.
+
+### Relevance
+
+The instrument must be correlated with the endogenous variable.
+
+\[
+Cov(Z,X)\neq0
+\]
+
+### Exogeneity
+
+The instrument must not affect the error term.
+
+\[
+Cov(Z,u)=0
+\]
+
+Finding valid instruments is often the most difficult part of empirical research.
+
+## Two-Stage Least Squares
+
+Instrumental variable estimation is commonly implemented through Two-Stage Least Squares.
+
+### Stage 1
+
+Predict education using the instrument.
+
+\[
+Education_i=
+\gamma_0+
+\gamma_1 Instrument_i+
+v_i
+\]
+
+### Stage 2
+
+Use the predicted education values to estimate income.
+
+\[
+Income_i=
+\beta_0+
+\beta_1 \widehat{Education}_i+
+u_i
+\]
+
+The resulting estimate is less vulnerable to endogeneity bias.
+
+## Basic Python implementation
+
+The following code shows the structure of an IV regression. It requires the `linearmodels` package and an instrument variable in the dataset.
+
+```{python}
+# Uncomment after installing linearmodels and adding an instrument variable.
+# from linearmodels.iv import IV2SLS
+#
+# iv_model = IV2SLS(
+#     dependent=y,
+#     exog=np.ones(len(data)),
+#     endog=data["Education"],
+#     instruments=data["Distance"]
+# ).fit()
+#
+# print(iv_model.summary)
+```
+
+The details of IV estimation are beyond the scope of this course. The important point is understanding why economists use instruments.
+
+## Why instrumental variables are difficult
+
+Finding a valid instrument is challenging.
+
+Researchers must convince readers that:
+
+- the instrument affects the endogenous variable
+- the instrument does not directly affect the outcome
+
+Many empirical debates focus on whether instruments are truly valid. Weak or invalid instruments can produce misleading results.
+
+::: {.callout-warning}
+## Common mistake
+
+Do not assume that a statistically significant coefficient is causal. Statistical significance and causal identification are different issues.
+:::
+
+## Common mistakes
+
+### Mistake 1: Equating correlation with causation
+
+A significant coefficient does not automatically imply causality.
+
+### Mistake 2: Ignoring omitted variables
+
+Unobserved factors frequently influence both explanatory and dependent variables.
+
+### Mistake 3: Assuming reverse causality never exists
+
+Many economic relationships operate in both directions.
+
+### Mistake 4: Using weak instruments
+
+An instrument that barely affects the endogenous variable provides little information.
+
+### Mistake 5: Believing IV solves everything
+
+Instrumental variables address some sources of endogeneity, but they do not automatically guarantee credible results.
+
+## Key takeaways
+
+- Endogeneity occurs when an explanatory variable is correlated with the error term.
+- Omitted variables, simultaneity, and measurement error are common sources of endogeneity.
+- Endogeneity can bias coefficient estimates.
+- Biased coefficients threaten causal interpretation.
+- Correlation does not imply causation.
+- Instrumental variables provide one strategy for addressing endogeneity.
+- Valid instruments must be relevant and exogenous.
+- Establishing causality is often the most challenging task in applied economics.
+
+## Looking ahead
+
+Throughout this chapter, we examined individual econometric problems that can weaken empirical conclusions. In the next chapter, we bring everything together and learn how economists evaluate model credibility.
+
+<div class="chapter-nav">
+  <a href="chapter-19-multicollinearity.html">← Previous: 19</a>
+  <a href="chapter-21-model-diagnostics-and-empirical-credibility.html">Next: 21 →</a>
+</div>

@@ -1,0 +1,16 @@
+---
+title: "Appendices"
+---
+
+# Appendices
+
+These appendices collect quick-reference materials for NREC4107. Use them while studying, coding, preparing for exams, or completing the empirical project.
+
+| Appendix | Purpose | When to use |
+|---|---|---|
+| [A. Formula Sheet](appendix-a-formula-sheet.qmd) | Key formulas and interpretation rules | Reviewing before quizzes, exams, and regression work |
+| [B. Python Code Guide](appendix-b-python-code-guide.qmd) | Copy-paste Python patterns for common tasks | Working in Colab or debugging project code |
+| [C. Exam Practice](appendix-c-exam-practice.qmd) | Practice questions with a short answer key | Preparing for exams without using official exam material |
+| [D. Project Checklist](appendix-d-project-checklist.qmd) | Empirical project quality checklist | Planning, revising, and submitting the final project |
+| [E. Dataset Integrity](appendix-e-dataset-integrity.qmd) | Dataset credibility and cleaning checks | Before analysis and before final submission |
+

@@ -1,0 +1,57 @@
+---
+title: "NREC4107: Applied Intermediate Econometrics"
+---
+
+This coursebook supports NREC4107 Applied Intermediate Econometrics for Natural Resource Economics students. It focuses on applied data analysis, visualization, regression, diagnostics, prediction, machine learning basics, and empirical project writing using Python.
+
+::: {.callout-tip}
+Use the chapters for learning concepts and the appendices for quick reference while completing assignments, exams, and the empirical project.
+:::
+
+## How to use this coursebook
+
+- Start with Part I if you are new to Python or data work.
+- Use Part II before modeling to understand the data.
+- Use Part III for the core regression material.
+- Use Part IV when checking model problems.
+- Use Part V for prediction and machine learning extensions.
+- Use Part VI for the empirical project.
+- Use Appendices for formulas, code, exam practice, project checklists, and dataset integrity.
+
+## Course map
+
+| Part | Focus | Use when |
+|---|---|---|
+| [Part I. Data and Python](part-i/part-i-data-python.qmd) | Data foundations, Python workflow, and cleaning | You need to load, inspect, prepare, or document a dataset |
+| [Part II. Visualization](part-ii/part-ii-eda-visualization.qmd) | Descriptive statistics and graphs | You need to understand patterns before modeling |
+| [Part III. Regression](part-iii/part-iii-regression.qmd) | OLS, inference, functional forms, and model selection | You need the core econometrics material |
+| [Part IV. Econometric Problems](part-iv/part-iv-econometric-pitfalls.qmd) | Heteroskedasticity, autocorrelation, multicollinearity, endogeneity, and diagnostics | You need to check whether model results are reliable |
+| [Part V. Machine Learning](part-v/part-v-prediction-machine-learning.qmd) | Train-test splits, prediction, trees, boosting, and feature importance | You need prediction and machine learning extensions |
+| [Part VI. Empirical Project](part-vi/part-vi-student-empirical-project.qmd) | Research question, data, methodology, results, and final article | You are preparing the semester empirical project |
+| [Appendices](appendices/index.qmd) | Formulas, Python templates, exam practice, project checks, and dataset integrity | You need a quick reference or checklist |
+
+## What students should be able to do
+
+- clean and document an applied dataset
+- create descriptive statistics and graphs
+- estimate and interpret regression models
+- test hypotheses and compare models
+- diagnose common econometric problems
+- distinguish prediction from causal interpretation
+- prepare a short empirical project report
+
+## Software and data
+
+The course uses Python for applied data analysis and Quarto for the coursebook. Students can work in Google Colab or a local Python environment. The main teaching dataset is `Milk_Data_S2025n.csv`.
+
+::: {.callout-note}
+Most examples use the milk dataset so that data cleaning, visualization, regression, diagnostics, and prediction build on a common applied dataset.
+:::
+
+## Quick links
+
+- [Appendix A. Formula Sheet](appendices/appendix-a-formula-sheet.qmd)
+- [Appendix B. Python Code Guide](appendices/appendix-b-python-code-guide.qmd)
+- [Appendix C. Exam Practice](appendices/appendix-c-exam-practice.qmd)
+- [Appendix D. Project Checklist](appendices/appendix-d-project-checklist.qmd)
+- [Appendix E. Dataset Integrity](appendices/appendix-e-dataset-integrity.qmd)

@@ -1,0 +1,231 @@
+---
+title: "02. Data Types"
+subtitle: "NREC4107 - Applied Econometrics"
+format:
+  html:
+    toc: true
+    code-fold: false
+    code-tools: true
+execute:
+  eval: false
+  warning: false
+  message: false
+---
+
+## Opening purpose
+
+This chapter explains how empirical work begins with a clear question and a careful understanding of data types.
+
+We use the actual course milk dataset:
+
+```text
+Milk_Data_S2025n.csv
+```
+
+The dataset contains **258 observations** and **11 variables**. Each row is an observed milk product entry. Each column describes one feature of that product entry.
+
+## Applied question
+
+What kinds of economic questions can we ask using the milk dataset, and what types of variables do we have?
+
+## Key idea
+
+A weak empirical project begins with data only.
+
+A stronger empirical project begins with a question.
+
+The dataset can contain many variables, but the researcher must decide:
+
+- what the outcome variable is
+- which explanatory variables are relevant
+- what type of data structure is being used
+- whether the question is descriptive, associational, predictive, or causal
+
+## Loading the dataset
+
+```python
+from google.colab import drive
+drive.mount('/content/drive')
+
+import pandas as pd
+
+data_path = "/content/drive/MyDrive/NREC4107/data/Milk_Data_S2025n.csv"
+milk_data = pd.read_csv(data_path)
+
+milk_data.head()
+```
+
+Students should change the file path if they saved the dataset in a different Google Drive folder.
+
+## Observed dataset structure
+
+```python
+milk_data.shape
+```
+
+For the attached dataset, the shape is:
+
+```text
+(258, 11)
+```
+
+This means the dataset has **258 rows** and **11 columns**.
+
+```python
+milk_data.columns.tolist()
+```
+
+The observed columns are:
+
+```text
+['Location', 'Type', 'Brand', 'Fat', 'Fresh', 'Price', 'Package', 'Size', 'Pieces', 'Flavor', 'Volume']
+```
+
+## Variable types
+
+The table below describes the observed variables in the dataset.
+
+| Variable   | Observed type   | Role in this course        |   Unique values |
+|:-----------|:----------------|:---------------------------|----------------:|
+| Location   | categorical     | Categorical characteristic |               2 |
+| Type       | categorical     | Categorical characteristic |               3 |
+| Brand      | categorical     | Categorical characteristic |              19 |
+| Fat        | categorical     | Categorical characteristic |               3 |
+| Fresh      | categorical     | Categorical characteristic |               2 |
+| Price      | numeric         | Numeric measurement        |             106 |
+| Package    | categorical     | Categorical characteristic |               2 |
+| Size       | numeric         | Numeric measurement        |              21 |
+| Pieces     | numeric         | Numeric measurement        |               8 |
+| Flavor     | categorical     | Categorical characteristic |               2 |
+| Volume     | numeric         | Numeric measurement        |              33 |
+
+The numeric variables are:
+
+```text
+['Price', 'Size', 'Pieces', 'Volume']
+```
+
+The categorical variables are:
+
+```text
+['Location', 'Type', 'Brand', 'Fat', 'Fresh', 'Package', 'Flavor']
+```
+
+## Inspecting variable types in Python
+
+```python
+milk_data.dtypes
+```
+
+Python data types are not always the same as economic variable types. For example, a categorical variable may be stored as `object`, while a numeric variable may be stored as `int64` or `float64`.
+
+A researcher should inspect both the software type and the economic meaning of the variable.
+
+## Unit of observation
+
+The unit of observation is what each row represents.
+
+In this dataset, each row is an observed product entry with product characteristics and price. This matters because interpretation depends on the row unit.
+
+For example, a row is not a household, not a farm, not a monthly time period, and not a country. It is a product observation in the dataset.
+
+## Cross-sectional data
+
+The milk dataset is best treated as cross-sectional for the purposes of these introductory chapters. It records product observations rather than following the same product repeatedly through time.
+
+This means we can compare products with different characteristics, such as:
+
+- different brands
+- different package types
+- different volumes
+- different product types
+- different fat categories
+
+It does not allow us to study price changes over time unless a time variable is added.
+
+## Possible empirical questions
+
+The observed dataset suggests several applied questions:
+
+| Observed dataset feature                                     | Possible applied question                                         | Question type               |
+|:-------------------------------------------------------------|:------------------------------------------------------------------|:----------------------------|
+| Products have different recorded volumes                     | Are larger-volume products associated with higher total prices?   | Association                 |
+| Products have different total prices                         | Do high-price products also have high unit-price style values?    | Association                 |
+| Brands are observed across multiple products                 | Are brand differences visible after accounting for volume?        | Association with controls   |
+| Product type includes Milk, Laban, and Kefir                 | Do product types differ in price or unit-price style values?      | Association with categories |
+| Package type is recorded as a categorical variable           | Is package type associated with price differences?                | Association with categories |
+| Fat, Fresh, and Flavor are recorded as categorical variables | Do product characteristics help explain observed price variation? | Association with controls   |
+
+These questions are mostly descriptive or associational. A causal study would require a stronger design.
+
+## Choosing a dependent variable
+
+A dependent variable is the outcome we want to explain or predict.
+
+Possible dependent variables in this dataset include:
+
+- `Price`
+- `Price_per_1000_volume`, if constructed from `Price` and `Volume`
+
+Total price and unit-price style values answer different questions.
+
+For example:
+
+```python
+milk_data["Price_per_1000_volume"] = (milk_data["Price"] / milk_data["Volume"]) * 1000
+```
+
+If the class confirms that `Volume` is measured in milliliters, this variable can be interpreted as price per liter. Without that confirmation, it should be described as price per 1000 units of recorded volume.
+
+## Choosing explanatory variables
+
+Explanatory variables are variables that may help explain or predict the dependent variable.
+
+In this dataset, possible explanatory variables include:
+
+- `Size`
+- `Pieces`
+- `Volume`
+- `Location`
+- `Type`
+- `Brand`
+- `Fat`
+- `Fresh`
+- `Package`
+- `Flavor`
+
+The choice should be based on economic reasoning, not only on availability.
+
+## Interpretation
+
+A clear question makes the analysis easier to understand.
+
+For example:
+
+> Are larger-volume products associated with higher total prices?
+
+This question identifies:
+
+- dependent variable: `Price`
+- explanatory variable: `Volume`
+- question type: association
+- data structure: cross-sectional product observations
+
+A vague question such as “analyze the milk data” is weaker because it does not define the outcome or the comparison.
+
+## Common mistakes
+
+- Starting with a dataset but no question.
+- Confusing the software data type with the economic meaning.
+- Forgetting the unit of observation.
+- Treating cross-sectional data as time-series data.
+- Making causal claims from associational data.
+- Including all variables without explaining why they matter.
+
+## Key takeaway
+
+- Empirical work should begin with a clear question.
+- The attached milk dataset has 258 product observations and 11 variables.
+- `Price`, `Size`, `Pieces`, and `Volume` are numeric variables.
+- `Location`, `Type`, `Brand`, `Fat`, `Fresh`, `Package`, and `Flavor` are categorical variables.
+- Most early questions from this dataset should be interpreted as descriptive or associational.

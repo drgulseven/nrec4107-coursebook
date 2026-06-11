@@ -1,0 +1,80 @@
+---
+title: "Part III. Regression"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+---
+
+# Part III. Regression
+
+## Why Regression?
+
+In Part I, we learned how to prepare and organize data. In Part II, we explored data using descriptive statistics and visualization. We examined distributions, identified patterns, and developed research questions.
+
+The next step is to move beyond observation and begin measuring relationships.
+
+Regression analysis is one of the most widely used tools in economics, finance, agricultural economics, and public policy. It allows researchers to quantify relationships between variables and evaluate whether observed patterns are likely to reflect meaningful economic relationships.
+
+For example, after examining a scatterplot of milk prices and package volume, we might observe that larger packages appear more expensive. A graph can reveal this pattern, but it cannot tell us how strong the relationship is, whether it is statistically significant, or how accurately prices can be predicted.
+
+Regression analysis helps answer these questions.
+
+::: {.callout-note}
+Regression is one of the most important tools in empirical economics because it allows us to move from observation to measurement.
+:::
+
+## Learning Objectives
+
+By the end of Part III, students should be able to:
+
+- Estimate simple and multiple regression models.
+- Interpret regression coefficients correctly.
+- Understand confidence intervals and hypothesis tests.
+- Evaluate statistical significance.
+- Use regression models for prediction.
+- Compare alternative model specifications.
+- Interpret elasticity estimates.
+- Incorporate categorical variables into regression models.
+- Conduct joint hypothesis tests using F-tests.
+- Critically evaluate empirical results.
+
+## Roadmap of Part III
+
+```{=html}
+<div style="text-align:center; font-size:1.1em; margin:20px;">
+Research Question<br>↓<br>Data<br>↓<br>Regression Model<br>↓<br>Inference<br>↓<br>Prediction<br>↓<br>Economic Interpretation
+</div>
+```
+
+## In This Part
+
+| Chapter | Topic | Main focus |
+|---|---|---|
+| [10. Simple Regression](chapter-10-simple-linear-regression.qmd) | Simple Linear Regression | OLS as an average relationship between two variables |
+| [11. Hypothesis Testing](chapter-11-interval-estimation-and-hypothesis-testing.qmd) | Interval Estimation and Hypothesis Testing | Confidence intervals, t-tests, p-values |
+| [12. Prediction and Fit](chapter-12-prediction-and-goodness-of-fit.qmd) | Prediction and Goodness of Fit | Fitted values, prediction, forecast error, R² |
+| [13. Multiple Regression](chapter-13-multiple-regression.qmd) | Multiple Regression | Holding other variables constant |
+| [14. Functional Forms](chapter-14-functional-forms-and-elasticities.qmd) | Functional Forms | Logs, quadratics, and elasticities |
+| [15. Dummy Variables](chapter-15-dummy-variables-and-categorical-factors.qmd) | Dummy Variables | Brand, fat, and categorical factors |
+| [16. Model Selection](chapter-16-model-specification-and-f-tests.qmd) | Model Specification and F-tests | Joint hypotheses and model comparison |
+
+## Regression as a Language
+
+Regression is a language for describing economic relationships. A regression model typically contains an outcome variable, one or more explanatory variables, estimated coefficients, and unexplained variation. The coefficients summarize how variables are related on average.
+
+::: {.callout-tip}
+A good applied economist can explain every coefficient in plain language.
+:::
+
+## Key Takeaways
+
+- Regression is the central tool of empirical economics.
+- Regression quantifies relationships between variables.
+- Interpretation is more important than memorizing formulas.
+- Statistical significance and economic significance are not the same.
+- Regression can be used for explanation, prediction, and policy analysis.
+
+| Navigation |
+|------------|
+| [10. Simple Regression →](chapter-10-simple-linear-regression.qmd) |

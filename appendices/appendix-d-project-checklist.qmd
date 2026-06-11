@@ -1,0 +1,128 @@
+---
+title: "D. Project Checklist"
+---
+
+# D. Project Checklist
+
+Use this checklist before submitting an empirical project.
+
+## Research Question
+
+- [ ] The research question is specific.
+- [ ] The dependent variable is clear.
+- [ ] The main explanatory variable is clear.
+- [ ] The question is feasible with available data.
+- [ ] The question is economic, not only technical.
+
+## Data Source
+
+- [ ] The data source is identified.
+- [ ] The data source can be verified.
+- [ ] The collection date is recorded.
+- [ ] The raw dataset is preserved.
+- [ ] Any limitations are stated.
+
+## Dataset Integrity
+
+- [ ] The unit of observation is defined.
+- [ ] Missing values are checked.
+- [ ] Duplicate rows are checked.
+- [ ] Outliers are checked.
+- [ ] Categorical levels are checked.
+
+## Variable Definitions
+
+- [ ] Each variable has a clear definition.
+- [ ] Units are reported where relevant.
+- [ ] Constructed variables are explained.
+- [ ] The dependent variable is justified.
+- [ ] Control variables are justified.
+
+## Data Cleaning
+
+- [ ] Cleaning steps are documented.
+- [ ] Raw and cleaned files are separate.
+- [ ] No unexplained observations are deleted.
+- [ ] Code can reproduce the cleaned dataset.
+- [ ] Cleaning choices are economically reasonable.
+
+## Descriptive Statistics
+
+- [ ] Numeric variables have summary statistics.
+- [ ] Categorical variables have frequency tables.
+- [ ] Unusual values are discussed.
+- [ ] Descriptive statistics match the research question.
+
+## Graphs
+
+- [ ] Graphs are readable.
+- [ ] Axes are labeled.
+- [ ] Each graph has a purpose.
+- [ ] Graphs support the research question.
+- [ ] Graphs are not used as causal proof.
+
+## Econometric Model
+
+- [ ] The regression equation is written clearly.
+- [ ] Variables in the equation match the dataset.
+- [ ] The model choice is justified.
+- [ ] Coefficients are interpreted correctly.
+- [ ] Causality claims are avoided unless the design supports them.
+
+## Diagnostics
+
+- [ ] Residuals are checked.
+- [ ] Heteroskedasticity is considered.
+- [ ] Multicollinearity is considered.
+- [ ] Functional form is considered.
+- [ ] Robustness checks are included where appropriate.
+
+## Interpretation
+
+- [ ] Results are explained in words.
+- [ ] Statistical significance is reported.
+- [ ] Economic significance is discussed.
+- [ ] Limitations are stated.
+- [ ] Conclusions follow from the evidence.
+
+## Tables and Figures
+
+- [ ] Tables are clean and readable.
+- [ ] Figures are numbered or clearly referenced.
+- [ ] Regression results include key statistics.
+- [ ] Tables and figures are discussed in the text.
+
+## Writing Quality
+
+- [ ] The paper has a logical structure.
+- [ ] Paragraphs are concise.
+- [ ] Terms are used consistently.
+- [ ] The paper answers one main question.
+- [ ] The conclusion does not introduce new results.
+
+## Reproducibility
+
+- [ ] Code runs from top to bottom.
+- [ ] File paths are documented.
+- [ ] Packages are listed.
+- [ ] Random seeds are set when needed.
+- [ ] Output can be recreated.
+
+## Final Submission
+
+- [ ] Dataset is included or linked.
+- [ ] Code file is included.
+- [ ] Variable table is included.
+- [ ] Results tables are included.
+- [ ] Final report is complete.
+
+## Minimum Acceptable Project Package
+
+- dataset
+- code
+- variable table
+- graphs
+- regression results
+- diagnostics
+- short empirical report
+

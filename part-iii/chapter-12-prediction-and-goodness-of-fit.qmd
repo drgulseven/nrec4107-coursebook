@@ -1,0 +1,163 @@
+---
+title: "12. Prediction and Fit"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+# 12. Prediction and Fit
+
+```{python}
+#| label: setup
+#| include: false
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+from sklearn.metrics import mean_absolute_error
+try:
+    from sklearn.metrics import root_mean_squared_error
+except ImportError:
+    from sklearn.metrics import mean_squared_error
+    def root_mean_squared_error(y_true, y_pred):
+        return mean_squared_error(y_true, y_pred, squared=False)
+
+milk_data = pd.read_csv("Milk_Data_S2025n.csv")
+if "Volume" not in milk_data.columns:
+    milk_data["Volume"] = milk_data["Size"] * milk_data["Pieces"]
+milk_data["Volume1000"] = milk_data["Volume"] / 1000
+milk_data["Size1000"] = milk_data["Size"] / 1000
+```
+
+## Purpose
+
+Regression models can be used for prediction, but prediction is useful only when model performance is assessed carefully. This chapter uses the Milk Data model to explain fitted values, residuals, R², MAE, and RMSE.
+
+## Applied Question
+
+In Chapter 10 we estimated:
+
+$$
+\widehat{Price}=516.6+417.0\times Volume1000
+$$
+
+Can this equation predict milk prices well?
+
+## Fitted Values
+
+A fitted value is the value predicted by the regression equation:
+
+$$
+\widehat{Y}
+$$
+
+```{python}
+X = sm.add_constant(milk_data["Volume1000"])
+y = milk_data["Price"]
+model = sm.OLS(y, X).fit()
+milk_data["Predicted"] = model.predict(X)
+milk_data[["Price", "Predicted"]].head()
+```
+
+## Prediction Errors
+
+The residual is:
+
+$$
+Residual_i = Actual_i - Predicted_i
+$$
+
+```{python}
+milk_data["Residual"] = milk_data["Price"] - milk_data["Predicted"]
+```
+
+Residuals measure prediction error.
+
+## Goodness of Fit
+
+The model produces:
+
+$$
+R^2 = 0.274
+$$
+
+Package volume explains approximately 27.4% of the variation in milk prices. The remaining 72.6% is explained by other factors not included in this simple model.
+
+```{python}
+model.rsquared
+```
+
+## Prediction Accuracy
+
+Using the actual Milk Data regression:
+
+$$
+MAE = 437.6
+$$
+
+$$
+RMSE = 772.0
+$$
+
+MAE means that predictions differ from actual prices by about 438 price units on average. RMSE is larger because it penalizes large prediction errors more strongly.
+
+```{python}
+mae = mean_absolute_error(milk_data["Price"], milk_data["Predicted"])
+rmse = root_mean_squared_error(milk_data["Price"], milk_data["Predicted"])
+mae, rmse
+```
+
+## Actual Versus Predicted Plot
+
+```{python}
+plt.scatter(milk_data["Price"], milk_data["Predicted"])
+plt.xlabel("Actual Price")
+plt.ylabel("Predicted Price")
+plt.title("Actual versus Predicted Prices")
+plt.show()
+```
+
+## Residual Plot
+
+```{python}
+plt.scatter(milk_data["Predicted"], milk_data["Residual"])
+plt.axhline(y=0, linestyle="--")
+plt.xlabel("Predicted Price")
+plt.ylabel("Residual")
+plt.title("Residual Plot")
+plt.show()
+```
+
+A good residual plot should show random scatter with no systematic pattern.
+
+## Prediction Versus Explanation
+
+Prediction and explanation are related but not identical. Prediction focuses on accuracy. Explanation focuses on economic interpretation. A model can predict well without being causal, and a model can be useful for explanation even with modest prediction power.
+
+::: {.callout-warning}
+A high R² does not prove causality and does not guarantee that the model is correctly specified.
+:::
+
+## What We Learned From the Milk Data
+
+- R² = 0.274
+- MAE = 437.6
+- RMSE = 772.0
+
+Volume is useful but not sufficient. Additional variables are needed to improve prediction and explanation.
+
+## Key Takeaways
+
+- Fitted values are predicted values.
+- Residuals measure prediction errors.
+- Volume explains 27.4% of milk price variation.
+- MAE is approximately 437.6 price units.
+- RMSE is approximately 772.0 price units.
+- Prediction and explanation are distinct objectives.
+
+| Navigation |
+|------------|
+| [← 11. Hypothesis Testing](chapter-11-interval-estimation-and-hypothesis-testing.qmd) \| [Part III Home](part-iii-regression.qmd) \| [13. Multiple Regression →](chapter-13-multiple-regression.qmd) |

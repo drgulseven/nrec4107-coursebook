@@ -1,0 +1,47 @@
+---
+title: "Part IV. Econometric Problems"
+description: "Applied diagnostics for evaluating whether regression results are credible."
+---
+
+# Part IV. Econometric Problems
+
+In Part III, we learned how to estimate regression models. In Part IV, we ask a more careful question:
+
+> Can we trust the regression results?
+
+Applied econometrics is not only about producing coefficients, standard errors, and p-values. It is also about evaluating whether those results are credible. A regression table is the beginning of empirical interpretation, not the end.
+
+This part focuses on five common problems in applied econometrics:
+
+- heteroskedasticity
+- autocorrelation
+- multicollinearity
+- endogeneity
+- model misspecification and weak empirical credibility
+
+Each chapter uses a simple applied example, Python code, visual diagnostics, and interpretation.
+
+## In This Part
+
+| Chapter | Topic | Main question |
+|---|---|---|
+| 17 | Heteroskedasticity and Robust Standard Errors | Can we trust the reported standard errors? |
+| 18 | Autocorrelation in Time Series Data | Are regression errors related through time? |
+| 19 | Multicollinearity | Do explanatory variables contain overlapping information? |
+| 20 | Endogeneity and Instrumental Variables | Does correlation measure causation? |
+| 21 | Model Diagnostics and Empirical Credibility | Is the model believable? |
+
+## Main message
+
+Econometric problems do not automatically destroy an empirical study, but they weaken interpretation if ignored. Good empirical work combines statistical diagnostics with economic reasoning.
+
+::: {.callout-note}
+## Part IV learning goal
+
+By the end of this part, students should be able to move beyond mechanical regression output and evaluate whether empirical results deserve to be trusted.
+:::
+
+<div class="chapter-nav">
+  <a href="chapter-16-model-specification-and-f-tests.html">← Previous: 16</a>
+  <a href="chapter-17-heteroskedasticity-and-robust-standard-errors.html">Next: 17 →</a>
+</div>

@@ -1,0 +1,143 @@
+---
+title: "13. Multiple Regression"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+# 13. Multiple Regression
+
+```{python}
+#| label: setup
+#| include: false
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+from sklearn.metrics import mean_absolute_error
+try:
+    from sklearn.metrics import root_mean_squared_error
+except ImportError:
+    from sklearn.metrics import mean_squared_error
+    def root_mean_squared_error(y_true, y_pred):
+        return mean_squared_error(y_true, y_pred, squared=False)
+
+milk_data = pd.read_csv("Milk_Data_S2025n.csv")
+if "Volume" not in milk_data.columns:
+    milk_data["Volume"] = milk_data["Size"] * milk_data["Pieces"]
+milk_data["Volume1000"] = milk_data["Volume"] / 1000
+milk_data["Size1000"] = milk_data["Size"] / 1000
+```
+
+## Purpose
+
+Simple regression showed that larger milk packages tend to have higher prices. However, price may also depend on package size and number of pieces. Multiple regression allows us to study several explanatory variables simultaneously.
+
+The central idea is:
+
+> Estimate the effect of one variable while holding other variables constant.
+
+## Applied Question
+
+> Does volume still matter after accounting for package size and number of pieces?
+
+## The Multiple Regression Model
+
+$$
+Price_i = \beta_0 + \beta_1 Volume1000_i + \beta_2 Size1000_i + \beta_3 Pieces_i + u_i
+$$
+
+where Volume1000 is total volume in thousands of milliliters and Size1000 is package size in thousands of milliliters.
+
+## Python Implementation
+
+```{python}
+X = milk_data[["Volume1000", "Size1000", "Pieces"]]
+X = sm.add_constant(X)
+y = milk_data["Price"]
+model_multi = sm.OLS(y, X).fit()
+print(model_multi.summary())
+```
+
+## Actual Multiple Regression Results
+
+Key results:
+
+| Variable | Coefficient |
+|---|---:|
+| Volume1000 | 261.36 |
+| Size1000 | included |
+| Pieces | included |
+
+Model performance:
+
+$$
+R^2 = 0.302
+$$
+
+Compared with the simple model:
+
+$$
+R^2 = 0.274
+$$
+
+The explanatory power improves after including additional variables.
+
+## Why Did the Volume Coefficient Change?
+
+Simple regression coefficient:
+
+$$
+417.0
+$$
+
+Multiple regression coefficient:
+
+$$
+261.4
+$$
+
+The coefficient decreases because part of the relationship previously attributed to volume is now explained by package size and number of pieces.
+
+## Interpreting the Volume Coefficient
+
+> Holding package size and number of pieces constant, a 1,000 ml increase in total volume is associated with an average increase of approximately 261 price units.
+
+This phrase, "holding other variables constant," is the defining feature of multiple regression.
+
+::: {.callout-tip}
+The phrase "holding other variables constant" is the key idea behind multiple regression.
+:::
+
+## Control Variables
+
+Size1000 and Pieces are control variables. They help separate the relationship between volume and price from related package characteristics.
+
+## Omitted Variable Bias
+
+If package size and pieces affect price and are correlated with volume, omitting them may distort the volume coefficient. The reduction from 417.0 to 261.4 illustrates why coefficients often change when controls are added.
+
+## Goodness of Fit
+
+The improvement in R² is:
+
+$$
+0.302 - 0.274 = 0.028
+$$
+
+The model still leaves substantial variation unexplained, which motivates adding categorical variables such as Brand and Fat in Chapter 15.
+
+## Key Takeaways
+
+- Most economic outcomes depend on multiple variables.
+- Multiple regression allows economists to hold other variables constant.
+- The Milk Data multiple regression increases R² from 0.274 to 0.302.
+- The volume coefficient decreases from 417.0 to 261.4 after controls are added.
+- Control variables improve interpretation.
+
+| Navigation |
+|------------|
+| [← 12. Prediction and Fit](chapter-12-prediction-and-goodness-of-fit.qmd) \| [Part III Home](part-iii-regression.qmd) \| [14. Functional Forms →](chapter-14-functional-forms-and-elasticities.qmd) |

@@ -1,0 +1,82 @@
+---
+title: "Part I. Data and Python"
+subtitle: "NREC4107 - Applied Econometrics"
+format:
+  html:
+    toc: true
+    code-fold: false
+    code-tools: true
+execute:
+  eval: false
+  warning: false
+  message: false
+---
+
+## Purpose of Part I
+
+Part I introduces the basic workflow of applied econometrics using the actual course milk dataset:
+
+```text
+Milk_Data_S2025n.csv
+```
+
+The purpose is not to estimate a model yet. The purpose is to learn how to move from a real dataset to clear empirical questions, careful data inspection, reproducible Python work, and documented cleaning decisions.
+
+The attached dataset contains **258 observations** and **11 variables**. It includes numeric variables such as `Price`, `Size`, `Pieces`, and `Volume`, and categorical variables such as `Location`, `Type`, `Brand`, `Fat`, `Fresh`, `Package`, and `Flavor`.
+
+## Why this part matters
+
+Applied econometrics begins before regression. A researcher must first understand:
+
+- what each row represents
+- what each variable measures
+- which variables are numeric or categorical
+- whether values are missing
+- whether constructed variables are consistent
+- which question the data can reasonably help answer
+
+The course uses Python in Google Colab. The website shows the code, but students run the code in Colab.
+
+## In This Part
+
+- [01. Applied Econometrics](chapter-01-what-is-applied-econometrics.qmd)
+- [02. Data Types](chapter-02-economic-questions-data-types.qmd)
+- [03. Python and Colab](chapter-03-python-colab-reproducible-analysis.qmd)
+- [04. Data Cleaning](chapter-04-cleaning-agricultural-data.qmd)
+
+## Dataset used in Part I
+
+The running dataset is:
+
+```text
+Milk_Data_S2025n.csv
+```
+
+The dataset has the following observed columns:
+
+```text
+['Location', 'Type', 'Brand', 'Fat', 'Fresh', 'Price', 'Package', 'Size', 'Pieces', 'Flavor', 'Volume']
+```
+
+The code examples assume the file is saved in Google Drive as:
+
+```text
+MyDrive/NREC4107/data/Milk_Data_S2025n.csv
+```
+
+Students should change the path if they save the file somewhere else.
+
+## What students should be able to do after Part I
+
+After completing Part I, students should be able to:
+
+- explain applied econometrics as a connection between questions, data, methods, and interpretation
+- identify numeric and categorical variables in the milk dataset
+- open Google Colab and load a dataset from Google Drive
+- inspect missing values, duplicated rows, data types, and constructed variables
+- explain why cleaning decisions must be documented
+- distinguish description, association, prediction, and causality
+
+## Key message
+
+Good applied econometrics starts with careful data understanding. Software can help us calculate results, but it cannot decide whether the question is meaningful or whether the interpretation is credible.

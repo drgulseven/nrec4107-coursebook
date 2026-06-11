@@ -1,0 +1,104 @@
+---
+title: "C. Exam Practice"
+---
+
+# C. Exam Practice
+
+::: {.callout-warning}
+These are practice questions only. They are not an official future exam and do not predict exact exam questions.
+:::
+
+## Data Preparation and Python Errors
+
+1. Short answer: What is the unit of observation in the milk dataset?
+2. Code correction: Fix the unsafe column reference `milk_data.Price` using bracket notation.
+3. Interpretation: Why should a raw data file be preserved before cleaning?
+4. Code correction: A student writes `milk_data["Unit_Price"] = milk_data["Price"] / milk_data["Volume"]`, but some volumes are zero. What should be checked first?
+
+## Descriptive Statistics and Graphs
+
+5. Calculation: If prices are 400, 500, and 600, calculate the mean price.
+6. Interpretation: What does a large standard deviation tell us about a variable?
+7. Model choice: Which graph is better for comparing product counts by brand: pie chart or bar chart? Explain.
+8. Interpretation: A scatter plot shows higher total price for larger packages. What kind of question can this suggest?
+9. Short answer: Why does a graph not prove causality?
+
+## Simple Regression
+
+10. Interpretation: In `Price = beta_0 + beta_1 Volume + u`, what does `beta_1` mean?
+11. Calculation: If actual price is 600 and predicted price is 550, what is the residual?
+12. Interpretation: If R-squared is 0.70, what does that mean?
+13. Short answer: Why can a statistically significant coefficient still be economically small?
+
+## Hypothesis Testing
+
+14. Calculation: If `beta_hat = 10`, `SE = 2`, and the null value is 0, calculate the t-statistic.
+15. Interpretation: If a p-value is 0.03, what is the decision at the 5 percent level?
+16. Interpretation: What does a 95 percent confidence interval show?
+
+## Functional Forms
+
+17. Interpretation: In a log-log model, how do we interpret the slope coefficient?
+18. Interpretation: In a log-linear model, what does a coefficient of 0.04 approximately mean?
+19. Model choice: Why might a quadratic term be added to a model?
+
+## Dummy Variables and Interactions
+
+20. Interpretation: If `Package_Bottle` has coefficient 120, what is the comparison group?
+21. Short answer: What is the dummy variable trap?
+22. Interpretation: What does an interaction term allow a model to test?
+
+## Model Diagnostics
+
+23. Interpretation: What does a small Breusch-Pagan p-value suggest?
+24. Interpretation: What does a VIF above 10 suggest?
+25. Interpretation: What does a Durbin-Watson statistic far below 2 suggest?
+26. Model choice: If residual plots show a curved pattern, what diagnostic concern arises?
+
+## Machine Learning Versus Econometrics
+
+27. Interpretation: Why can a random forest predict well but be hard to explain economically?
+28. Short answer: Why should model comparison use the same test sample?
+29. Interpretation: Why is feature importance not the same as causality?
+
+## Empirical Project and Data Integrity
+
+30. Short answer: What should be included in a variable dictionary?
+31. Interpretation: Why is a dataset with no source link weak?
+32. Short answer: Name two items that should be checked before submitting an empirical project.
+
+## Short Answer Key
+
+1. A product observation.
+2. Use `milk_data["Price"]`.
+3. So cleaning decisions can be checked and reproduced.
+4. Check that `Volume` exists and is positive before division.
+5. 500.
+6. Values are more spread out around the mean.
+7. Bar chart, because category comparisons are easier to read.
+8. An associational or predictive question about price and volume.
+9. A graph shows patterns, not research design or causal identification.
+10. Expected change in price for a one-unit increase in volume.
+11. 50.
+12. The model explains about 70 percent of variation in price.
+13. Statistical evidence does not guarantee practical importance.
+14. 5.
+15. Reject the null hypothesis.
+16. A range of plausible coefficient values.
+17. As an elasticity.
+18. About a 4 percent increase in the dependent variable.
+19. To allow a nonlinear relationship.
+20. The omitted package category.
+21. Including all categories plus an intercept, creating perfect multicollinearity.
+22. Whether one variable changes the effect of another.
+23. Possible heteroskedasticity.
+24. Serious multicollinearity may be present.
+25. Positive autocorrelation may be present.
+26. Functional form misspecification.
+27. It uses complex nonlinear rules instead of simple coefficients.
+28. To make performance comparisons fair.
+29. A predictor can help forecast without causing the outcome.
+30. Variable name, definition, units, type, and source or construction.
+31. The data cannot be verified.
+32. Examples: missing values, duplicates, variable definitions, model diagnostics, code reproducibility.
+

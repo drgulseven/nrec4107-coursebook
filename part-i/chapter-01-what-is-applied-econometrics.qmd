@@ -1,0 +1,160 @@
+---
+title: "01. Applied Econometrics"
+subtitle: "NREC4107 - Applied Econometrics"
+format:
+  html:
+    toc: true
+    code-fold: false
+    code-tools: true
+execute:
+  eval: false
+  warning: false
+  message: false
+---
+
+## Opening purpose
+
+This chapter introduces applied econometrics as the careful use of data to answer economic questions.
+
+We use the actual course milk dataset:
+
+```text
+Milk_Data_S2025n.csv
+```
+
+The dataset contains **258 observations** and **11 variables**. It is useful for introductory applied econometrics because it contains prices, product sizes, product volumes, brands, locations, package types, and other product characteristics.
+
+## Applied question
+
+What can a real milk product dataset teach us about applied econometrics?
+
+## Key idea
+
+Applied econometrics connects four things:
+
+1. an economic question
+2. observed data
+3. an empirical method
+4. careful interpretation
+
+The method is important, but it is not the whole study. A regression output or graph is useful only when the question is clear and the data are understood.
+
+## The actual milk dataset
+
+The observed columns in the dataset are:
+
+```text
+['Location', 'Type', 'Brand', 'Fat', 'Fresh', 'Price', 'Package', 'Size', 'Pieces', 'Flavor', 'Volume']
+```
+
+A few rows from the actual dataset can be viewed with:
+
+```python
+from google.colab import drive
+drive.mount('/content/drive')
+
+import pandas as pd
+
+data_path = "/content/drive/MyDrive/NREC4107/data/Milk_Data_S2025n.csv"
+milk_data = pd.read_csv(data_path)
+
+milk_data[["Type", "Brand", "Size", "Pieces", "Volume", "Price"]].head(6)
+```
+
+The first six observations in the attached dataset are:
+
+| Type   | Brand   | Size     |   Pieces | Volume   | Price    |
+|:-------|:--------|:---------|---------:|:---------|:---------|
+| Milk   | Almarai | 1,000.00 |        1 | 1,000.00 | 490.00   |
+| Milk   | Almarai | 1,000.00 |        4 | 4,000.00 | 1,960.00 |
+| Milk   | Mazoon  | 3,780.00 |        1 | 3,780.00 | 1,980.00 |
+| Milk   | Lacnor  | 125.00   |        6 | 750.00   | 540.00   |
+| Milk   | Almarai | 1,000.00 |        1 | 1,000.00 | 490.00   |
+| Milk   | Almarai | 1,000.00 |        4 | 4,000.00 | 1,960.00 |
+
+These rows already show the basic idea of applied econometrics. We observe product characteristics and prices. We then ask whether some characteristics are associated with price differences.
+
+## What econometrics does
+
+Econometrics helps us move from informal observation to structured evidence.
+
+For example, we may ask:
+
+- Are larger-volume products associated with higher total prices?
+- Are larger-volume products associated with lower price per 1000 units of recorded volume?
+- Do brands differ in observed prices?
+- Does product type help explain price differences?
+- Does package type matter after accounting for volume?
+
+These are empirical questions. They require data and careful interpretation.
+
+## Description, association, prediction, and causality
+
+Applied econometrics uses different kinds of claims.
+
+A descriptive claim summarizes what is observed:
+
+> The dataset contains 258 milk product observations.
+
+An association claim describes how variables move together:
+
+> Total price may be associated with recorded volume.
+
+A prediction claim asks whether some variables help predict another variable:
+
+> Product volume, brand, and package type may help predict price.
+
+A causal claim is stronger:
+
+> Changing package volume causes price to change.
+
+The milk dataset by itself is useful for description, visualization, association, and prediction exercises. Causal claims require stronger research design and should not be made from simple graphs or correlations alone.
+
+## A simple econometric way of thinking
+
+A basic empirical relationship can be written as:
+
+\[
+Price_i = f(Product\ characteristics_i)
+\]
+
+This means that price may be related to observed product characteristics such as volume, brand, type, package, fat category, freshness, flavor, and location.
+
+A later regression chapter will use more formal models. At this stage, the important point is simple: we start with a question and then use the dataset to investigate it.
+
+## Why Python is useful
+
+Python helps us:
+
+- load the dataset
+- inspect variables
+- calculate descriptive statistics
+- create new variables
+- draw graphs
+- estimate models
+- reproduce the analysis later
+
+But Python does not replace economic reasoning. The researcher must still decide what question is meaningful, what variables are relevant, and what interpretation is defensible.
+
+## Interpretation
+
+The milk dataset gives students a concrete example of applied econometrics. It includes both numeric and categorical variables, so it can be used for data inspection, visualization, regression, dummy variables, and prediction.
+
+At this stage, we are not trying to prove causal effects. We are learning how to move from observed product data to careful empirical questions.
+
+## Common mistakes
+
+- Starting with software before defining the question.
+- Treating any numerical result as automatically meaningful.
+- Confusing association with causality.
+- Ignoring units and variable definitions.
+- Assuming the dataset represents market shares without knowing the sampling design.
+- Treating product characteristics as causal factors without a research design.
+
+## Key takeaway
+
+- Applied econometrics connects questions, data, methods, and interpretation.
+- The milk dataset contains real observed product characteristics and prices.
+- The dataset can support description, visualization, association, and prediction exercises.
+- Causal claims require stronger evidence than simple graphs or correlations.
+- Python is a tool; economic reasoning remains essential.

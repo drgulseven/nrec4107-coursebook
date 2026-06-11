@@ -1,0 +1,302 @@
+---
+title: "05. Descriptive Statistics"
+subtitle: "NREC4107 - Applied Econometrics"
+format:
+  html:
+    toc: true
+    code-fold: false
+    code-tools: true
+execute:
+  eval: false
+  warning: false
+  message: false
+---
+
+## Opening purpose
+
+This chapter updates the descriptive statistics using the actual course milk dataset:
+
+```text
+Milk_Data_S2025n.csv
+```
+
+The purpose is to summarize the dataset before drawing graphs or estimating models. Descriptive statistics help us understand what is in the data, how variables are measured, and whether there are values that require attention.
+
+This chapter does not assume anything beyond what is observed in the dataset.
+
+::: {.callout-tip}
+For formulas and common summary measures, see [Appendix A. Formula Sheet](../appendices/appendix-a-formula-sheet.qmd).
+:::
+
+## Applied question
+
+What does the milk dataset contain, and how can we summarize it before visualization and regression?
+
+## Key idea
+
+Descriptive statistics are the first step in applied econometrics. They help us answer basic questions such as:
+
+- How many observations are in the dataset?
+- Which variables are numeric?
+- Which variables are categorical?
+- Are there missing values?
+- Are there repeated rows?
+- How are price, size, pieces, and volume distributed?
+- Are there unusually high or low values that should be inspected?
+
+Descriptive statistics describe the data. They do not explain causality.
+
+## Loading the dataset in Google Colab
+
+The examples below assume that the dataset is stored in Google Drive as:
+
+```text
+MyDrive/NREC4107/data/Milk_Data_S2025n.csv
+```
+
+Students should change the file path if they saved the dataset somewhere else.
+
+```python
+from google.colab import drive
+drive.mount('/content/drive')
+
+import pandas as pd
+import numpy as np
+
+data_path = "/content/drive/MyDrive/NREC4107/data/Milk_Data_S2025n.csv"
+milk_data = pd.read_csv(data_path)
+
+milk_data.head()
+```
+
+## Dataset structure
+
+The attached dataset contains **258 rows** and **11 columns**.
+
+The observed columns are:
+
+```python
+milk_data.columns.tolist()
+```
+
+The columns in the dataset are:
+
+```text
+['Location', 'Type', 'Brand', 'Fat', 'Fresh', 'Price', 'Package', 'Size', 'Pieces', 'Flavor', 'Volume', 'Price_per_1000_volume']
+```
+
+The numeric variables are `Price`, `Size`, `Pieces`, and `Volume`. The other variables are categorical text variables.
+
+```python
+milk_data.info()
+```
+
+## Missing values and repeated rows
+
+The dataset contains **0 missing values** across all columns.
+
+```python
+milk_data.isnull().sum()
+```
+
+The dataset also contains **48 fully duplicated rows**.
+
+```python
+milk_data.duplicated().sum()
+```
+
+A duplicated row should not be deleted automatically. It may be a repeated product entry, a repeated observation, or a data entry duplicate. The correct decision depends on how the data were collected. For now, we report the duplication count and keep the data unchanged.
+
+## Checking the constructed volume variable
+
+The dataset already contains a `Volume` column. We can verify whether it equals:
+
+\[
+Volume = Size \times Pieces
+\]
+
+```python
+volume_check = milk_data["Volume"] == milk_data["Size"] * milk_data["Pieces"]
+
+volume_check.value_counts()
+```
+
+In this dataset, the number of rows where `Volume` does **not** match `Size × Pieces` is **0**.
+
+```python
+(milk_data["Volume"] != milk_data["Size"] * milk_data["Pieces"]).sum()
+```
+
+This means the recorded `Volume` column is consistent with `Size × Pieces` for all rows in the attached dataset.
+
+## Descriptive statistics for numeric variables
+
+The table below summarizes the numeric variables in the dataset.
+
+|        |   count | mean     | std      |   min |   25% | 50%      | 75%      | max      |
+|:-------|--------:|:---------|:---------|------:|------:|:---------|:---------|:---------|
+| Price  |     258 | 1,028.08 | 907.73   |   100 |   450 | 850.00   | 1,250.00 | 4,990.00 |
+| Size   |     258 | 857.29   | 766.05   |   120 |   200 | 1,000.00 | 1,000.00 | 3,800.00 |
+| Pieces |     258 | 2.50     | 3.18     |     1 |     1 | 1.00     | 4.00     | 24.00    |
+| Volume |     258 | 1,343.21 | 1,139.13 |   120 |   500 | 1,000.00 | 2,000.00 | 4,000.00 |
+
+The median price is **850.00**, while the mean price is **1,028.08**. Since the mean is higher than the median, the price distribution is likely influenced by higher-priced observations.
+
+The median volume is **1,000.00**, while the mean volume is **1,343.21**. This shows that product volumes vary substantially across observations.
+
+## Categorical variable summary
+
+The table below summarizes the main categorical variables.
+
+| Variable   |   Unique categories | Most common category   |   Most common count |
+|:-----------|--------------------:|:-----------------------|--------------------:|
+| Location   |                   2 | Oman                   |                 130 |
+| Type       |                   3 | Milk                   |                 233 |
+| Brand      |                  19 | Almarai                |                  58 |
+| Fat        |                   3 | Full                   |                 161 |
+| Fresh      |                   2 | Yes                    |                 142 |
+| Package    |                   2 | Carton                 |                 131 |
+| Flavor     |                   2 | No                     |                 165 |
+
+The most common product type is `Milk`, with **233** observations. The most common brand is `Almarai`, with **58** observations. The dataset has **19** brand categories.
+
+These are observed frequencies in the dataset. They should not be interpreted as market shares unless the data collection process was designed to represent market shares.
+
+## Frequency tables
+
+Frequency tables help us inspect categorical variables.
+
+```python
+milk_data["Location"].value_counts()
+```
+
+```python
+milk_data["Type"].value_counts()
+```
+
+```python
+milk_data["Brand"].value_counts()
+```
+
+```python
+milk_data["Fat"].value_counts()
+```
+
+```python
+milk_data["Package"].value_counts()
+```
+
+These tables are useful because categorical variables often become grouping variables in graphs and dummy variables in regression models.
+
+## Price per 1000 units of volume
+
+Total price can be misleading when package volumes differ. A larger package may have a higher total price but a lower price per unit.
+
+To avoid assuming the physical unit beyond the dataset, we define:
+
+\[
+Price\ per\ 1000\ volume = \frac{Price}{Volume} \times 1000
+\]
+
+```python
+milk_data["Price_per_1000_volume"] = (milk_data["Price"] / milk_data["Volume"]) * 1000
+
+milk_data[["Price", "Volume", "Price_per_1000_volume"]].head()
+```
+
+If the class confirms that `Volume` is measured in milliliters, this variable can be interpreted as price per liter. Without that confirmation, it should be described as price per 1000 units of recorded volume.
+
+The descriptive statistics are:
+
+|                       |   count | mean     | std      |   min |    25% | 50%      | 75%      | max      |
+|:----------------------|--------:|:---------|:---------|------:|-------:|:---------|:---------|:---------|
+| Price                 |     258 | 1,028.08 | 907.73   | 100   | 450    | 850.00   | 1,250.00 | 4,990.00 |
+| Volume                |     258 | 1,343.21 | 1,139.13 | 120   | 500    | 1,000.00 | 2,000.00 | 4,000.00 |
+| Price_per_1000_volume |     258 | 977.94   | 933.50   | 347.5 | 548.12 | 666.67   | 1,050.69 | 7,600.00 |
+
+The median value of `Price_per_1000_volume` is **666.67**.
+
+## IQR rule for unusual values
+
+The interquartile range rule is one simple way to flag unusual values. It does not prove that a value is wrong.
+
+The rule is:
+
+\[
+Lower = Q1 - 1.5 \times IQR
+\]
+
+\[
+Upper = Q3 + 1.5 \times IQR
+\]
+
+Values outside this range are flagged for inspection.
+
+| Variable              |     Q1 | Median   | Q3       | IQR      | Lower rule   | Upper rule   |   Flagged values |
+|:----------------------|-------:|:---------|:---------|:---------|:-------------|:-------------|-----------------:|
+| Price                 | 450    | 850.00   | 1,250.00 | 800.00   | -750.00      | 2,450.00     |               13 |
+| Size                  | 200    | 1,000.00 | 1,000.00 | 800.00   | -1,000.00    | 2,200.00     |                8 |
+| Pieces                |   1    | 1.00     | 4.00     | 3.00     | -3.50        | 8.50         |                6 |
+| Volume                | 500    | 1,000.00 | 2,000.00 | 1,500.00 | -1,750.00    | 4,250.00     |                0 |
+| Price_per_1000_volume | 548.12 | 666.67   | 1,050.69 | 502.57   | -205.73      | 1,804.55     |               21 |
+
+The variable `Volume` has **0** values flagged by this rule. The variable `Price_per_1000_volume` has **21** flagged values. These observations should be inspected before any decision is made.
+
+## Correlation among numeric variables
+
+Correlation provides a first look at linear association among numeric variables.
+
+```python
+numeric_data = milk_data[["Price", "Size", "Pieces", "Volume", "Price_per_1000_volume"]]
+
+numeric_data.corr()
+```
+
+For the attached dataset, the correlation matrix is:
+
+|                       |   Price |   Size |   Pieces |   Volume |   Price_per_1000_volume |
+|:----------------------|--------:|-------:|---------:|---------:|------------------------:|
+| Price                 |   1     |  0.339 |    0.244 |    0.523 |                   0.53  |
+| Size                  |   0.339 |  1     |   -0.331 |    0.557 |                  -0.15  |
+| Pieces                |   0.244 | -0.331 |    1     |    0.316 |                  -0.115 |
+| Volume                |   0.523 |  0.557 |    0.316 |    1     |                  -0.27  |
+| Price_per_1000_volume |   0.53  | -0.15  |   -0.115 |   -0.27  |                   1     |
+
+The correlation between `Price` and `Volume` is **0.523**. This means total price and volume are positively associated in the dataset.
+
+The correlation between `Volume` and `Price_per_1000_volume` is **-0.270**. This suggests that larger volume is associated with lower price per 1000 units of volume in this dataset.
+
+These are associations only. They do not prove causality.
+
+## Interpretation
+
+The dataset is suitable for introductory exploratory data analysis because it contains both numeric and categorical variables.
+
+Important observed facts are:
+
+- the dataset has 258 rows and 11 columns
+- there are 0 missing values
+- there are 48 fully duplicated rows
+- `Volume` matches `Size × Pieces` in all rows
+- `Price`, `Size`, `Pieces`, and `Volume` are numeric
+- the dataset has 19 brand categories
+- `Price_per_1000_volume` is useful for comparing products with different volumes
+
+The descriptive statistics also show why graphs are needed. Means, medians, quartiles, and correlations give a compact summary, but they do not show the full shape of the distributions.
+
+## Common mistakes
+
+- Assuming the price unit without checking dataset documentation.
+- Treating duplicated rows as errors without knowing how the data were collected.
+- Comparing total price across products with very different volumes.
+- Reporting only the mean and ignoring the median and quartiles.
+- Treating correlation as causation.
+- Deleting unusual values only because they were flagged by the IQR rule.
+
+## Key takeaway
+
+- Descriptive statistics provide the first empirical summary of the dataset.
+- The attached milk dataset has 258 observations, 11 variables, and no missing values.
+- The `Volume` variable is consistent with `Size × Pieces`.
+- `Price_per_1000_volume` helps compare products with different recorded volumes.
+- Descriptive statistics prepare the data for graphs and regression, but they do not establish causality.

@@ -1,0 +1,169 @@
+---
+title: "14. Functional Forms"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+# 14. Functional Forms
+
+```{python}
+#| label: setup
+#| include: false
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+from sklearn.metrics import mean_absolute_error
+try:
+    from sklearn.metrics import root_mean_squared_error
+except ImportError:
+    from sklearn.metrics import mean_squared_error
+    def root_mean_squared_error(y_true, y_pred):
+        return mean_squared_error(y_true, y_pred, squared=False)
+
+milk_data = pd.read_csv("Milk_Data_S2025n.csv")
+if "Volume" not in milk_data.columns:
+    milk_data["Volume"] = milk_data["Size"] * milk_data["Pieces"]
+milk_data["Volume1000"] = milk_data["Volume"] / 1000
+milk_data["Size1000"] = milk_data["Size"] / 1000
+```
+
+::: {.callout-tip}
+For log-linear, linear-log, and log-log interpretation rules, see [Appendix A. Formula Sheet](../appendices/appendix-a-formula-sheet.qmd).
+:::
+
+## Purpose
+
+A regression model may be statistically correct but economically inappropriate if the wrong functional form is chosen. This chapter compares linear, quadratic, and log-log specifications using the actual Milk Data dataset.
+
+## Applied Question
+
+> Is a linear model the best way to describe the relationship between volume and price?
+
+## Linear Model
+
+The simple linear model is:
+
+$$
+Price = 516.6 + 417.0 Volume1000
+$$
+
+with:
+
+$$
+R^2 = 0.274
+$$
+
+It assumes a constant marginal effect of volume.
+
+## Quadratic Model
+
+A quadratic model allows the marginal effect to change:
+
+$$
+Price = \beta_0 + \beta_1 Volume1000 + \beta_2 Volume1000^2 + u
+$$
+
+```{python}
+milk_data["Volume1000_sq"] = milk_data["Volume1000"] ** 2
+Xq = sm.add_constant(milk_data[["Volume1000", "Volume1000_sq"]])
+model_quad = sm.OLS(milk_data["Price"], Xq).fit()
+print(model_quad.summary())
+```
+
+Actual quadratic results:
+
+| Variable | Coefficient |
+|---|---:|
+| Volume1000 | 978.02 |
+| Volume1000² | -135.96 |
+
+The negative squared term indicates diminishing marginal effects. Price rises with volume, but the rate of increase becomes smaller as volume increases.
+
+## Log-Log Model
+
+The log-log model is:
+
+$$
+\ln(Price) = \beta_0 + \beta_1 \ln(Volume) + u
+$$
+
+```{python}
+milk_data["log_price"] = np.log(milk_data["Price"])
+milk_data["log_volume"] = np.log(milk_data["Volume"])
+Xlog = sm.add_constant(milk_data["log_volume"])
+model_log = sm.OLS(milk_data["log_price"], Xlog).fit()
+print(model_log.summary())
+```
+
+Actual log-log result:
+
+$$
+\hat{\beta}_1 = 0.759
+$$
+
+with:
+
+$$
+R^2 = 0.655
+$$
+
+## Elasticity Interpretation
+
+In a log-log model, the coefficient is an elasticity.
+
+> A 1% increase in package volume is associated with an average increase of approximately 0.759% in price.
+
+If volume increases by 10%, price is expected to increase by about 7.6%.
+
+## Comparing Models
+
+| Model | R² |
+|---|---:|
+| Linear | 0.274 |
+| Multiple Linear | 0.302 |
+| Log-Log | 0.655 |
+
+The log-log specification explains substantially more price variation than the level model.
+
+## Why the Elasticity Is Less Than One
+
+Because 0.759 is less than one, price increases proportionally less than volume. This suggests quantity discounts or scale economies in package pricing.
+
+## Choosing Functional Forms
+
+Functional form selection should be based on economic theory, visual inspection, statistical performance, and interpretability. A higher R² alone is not enough.
+
+## Common Mistakes
+
+::: {.callout-warning}
+### Common Mistake 1
+Using logarithms when variables contain zeros or negative values.
+:::
+
+::: {.callout-warning}
+### Common Mistake 2
+Interpreting elasticity coefficients as ordinary level coefficients.
+:::
+
+::: {.callout-warning}
+### Common Mistake 3
+Choosing a model solely because it has a higher R².
+:::
+
+## Key Takeaways
+
+- Functional form matters.
+- The simple linear model explains 27.4% of variation.
+- The log-log model explains 65.5% of variation.
+- The estimated elasticity is 0.759.
+- The quadratic specification reveals diminishing marginal effects.
+- The Milk Data strongly support a nonlinear relationship.
+
+| Navigation |
+|------------|
+| [← 13. Multiple Regression](chapter-13-multiple-regression.qmd) \| [Part III Home](part-iii-regression.qmd) \| [15. Dummy Variables →](chapter-15-dummy-variables-and-categorical-factors.qmd) |

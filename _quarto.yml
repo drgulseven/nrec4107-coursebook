@@ -1,0 +1,164 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - "*.qmd"
+    - "part-i/*.qmd"
+    - "part-ii/*.qmd"
+    - "part-iii/*.qmd"
+    - "part-iv/*.qmd"
+    - "part-v/*.qmd"
+    - "part-vi/*.qmd"
+    - "appendices/*.qmd"
+    - "!notes/"
+    - "!staging/"
+    - "!incoming-zips/"
+
+execute:
+  freeze: auto
+
+jupyter: .venv/bin/python
+
+website:
+  title: "NREC4107"
+  sidebar:
+    style: docked
+    search: true
+    contents:
+      - text: "Course Home"
+        href: index.qmd
+
+      - section: "Part I. Data and Python"
+        contents:
+          - text: "Part I. Data and Python"
+            href: part-i/part-i-data-python.qmd
+          - text: "01. Applied Econometrics"
+            href: part-i/chapter-01-what-is-applied-econometrics.qmd
+          - text: "02. Data Types"
+            href: part-i/chapter-02-economic-questions-data-types.qmd
+          - text: "03. Python and Colab"
+            href: part-i/chapter-03-python-colab-reproducible-analysis.qmd
+          - text: "04. Data Cleaning"
+            href: part-i/chapter-04-cleaning-agricultural-data.qmd
+
+      - section: "Part II. Visualization"
+        contents:
+          - text: "Part II. Visualization"
+            href: part-ii/part-ii-eda-visualization.qmd
+          - text: "05. Descriptive Statistics"
+            href: part-ii/chapter-05-descriptive-statistics.qmd
+          - text: "06. Univariate Graphs"
+            href: part-ii/chapter-06-univariate-graphs.qmd
+          - text: "07. Bivariate Graphs"
+            href: part-ii/chapter-07-bivariate-graphs.qmd
+          - text: "08. Multivariate Graphs"
+            href: part-ii/chapter-08-multivariate-interactive-graphs.qmd
+          - text: "09. Research Questions"
+            href: part-ii/chapter-09-graphs-to-research-questions.qmd
+
+      - section: "Part III. Regression"
+        contents:
+          - text: "Part III. Regression"
+            href: part-iii/part-iii-regression.qmd
+          - text: "10. Simple Regression"
+            href: part-iii/chapter-10-simple-linear-regression.qmd
+          - text: "11. Hypothesis Testing"
+            href: part-iii/chapter-11-interval-estimation-and-hypothesis-testing.qmd
+          - text: "12. Prediction and Fit"
+            href: part-iii/chapter-12-prediction-and-goodness-of-fit.qmd
+          - text: "13. Multiple Regression"
+            href: part-iii/chapter-13-multiple-regression.qmd
+          - text: "14. Functional Forms"
+            href: part-iii/chapter-14-functional-forms-and-elasticities.qmd
+          - text: "15. Dummy Variables"
+            href: part-iii/chapter-15-dummy-variables-and-categorical-factors.qmd
+          - text: "16. Model Selection"
+            href: part-iii/chapter-16-model-specification-and-f-tests.qmd
+
+      - section: "Part IV. Econometric Problems"
+        contents:
+          - text: "Part IV. Econometric Problems"
+            href: part-iv/part-iv-econometric-pitfalls.qmd
+          - text: "17. Heteroskedasticity"
+            href: part-iv/chapter-17-heteroskedasticity-and-robust-standard-errors.qmd
+          - text: "18. Autocorrelation"
+            href: part-iv/chapter-18-autocorrelation-in-time-series-data.qmd
+          - text: "19. Multicollinearity"
+            href: part-iv/chapter-19-multicollinearity.qmd
+          - text: "20. Endogeneity"
+            href: part-iv/chapter-20-endogeneity-and-instrumental-variables.qmd
+          - text: "21. Diagnostics"
+            href: part-iv/chapter-21-model-diagnostics-and-empirical-credibility.qmd
+
+      - section: "Part V. Machine Learning"
+        contents:
+          - text: "Part V. Machine Learning"
+            href: part-v/part-v-prediction-machine-learning.qmd
+          - text: "22. Train Test Split"
+            href: part-v/chapter-22-train-test-split.qmd
+          - text: "23. Econometrics vs ML"
+            href: part-v/chapter-23-regression-vs-machine-learning.qmd
+          - text: "24. Trees and Forests"
+            href: part-v/chapter-24-decision-trees-random-forests.qmd
+          - text: "25. Gradient Boosting"
+            href: part-v/chapter-25-xgboost-model-comparison.qmd
+          - text: "26. Feature Importance"
+            href: part-v/chapter-26-feature-importance.qmd
+
+      - section: "Part VI. Empirical Project"
+        contents:
+          - text: "Part VI. Empirical Project"
+            href: part-vi/part-vi-student-empirical-project.qmd
+          - text: "27. Research Question"
+            href: part-vi/chapter-27-choosing-a-research-question.qmd
+          - text: "28. Data Section"
+            href: part-vi/chapter-28-writing-the-data-section.qmd
+          - text: "29. Methodology"
+            href: part-vi/chapter-29-writing-the-methodology-section.qmd
+          - text: "30. Results and Discussion"
+            href: part-vi/chapter-30-writing-results-and-discussion.qmd
+          - text: "31. Tables and Figures"
+            href: part-vi/chapter-31-preparing-tables-graphs-and-appendices.qmd
+          - text: "32. Article Template"
+            href: part-vi/chapter-32-final-empirical-article-template.qmd
+
+      - section: "Appendices"
+        contents:
+          - text: "Appendices"
+            href: appendices/index.qmd
+          - text: "A. Formula Sheet"
+            href: appendices/appendix-a-formula-sheet.qmd
+          - text: "B. Python Code Guide"
+            href: appendices/appendix-b-python-code-guide.qmd
+          - text: "C. Exam Practice"
+            href: appendices/appendix-c-exam-practice.qmd
+          - text: "D. Project Checklist"
+            href: appendices/appendix-d-project-checklist.qmd
+          - text: "E. Dataset Integrity"
+            href: appendices/appendix-e-dataset-integrity.qmd
+
+  navbar:
+    left:
+      - text: "Home"
+        href: index.qmd
+      - text: "Part I. Data and Python"
+        href: part-i/part-i-data-python.qmd
+      - text: "Part II. Visualization"
+        href: part-ii/part-ii-eda-visualization.qmd
+      - text: "Part III. Regression"
+        href: part-iii/part-iii-regression.qmd
+      - text: "Part IV. Econometric Problems"
+        href: part-iv/part-iv-econometric-pitfalls.qmd
+      - text: "Part V. Machine Learning"
+        href: part-v/part-v-prediction-machine-learning.qmd
+      - text: "Part VI. Empirical Project"
+        href: part-vi/part-vi-student-empirical-project.qmd
+      - text: "Appendices"
+        href: appendices/index.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-location: right
+    number-sections: false

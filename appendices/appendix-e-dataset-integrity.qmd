@@ -1,0 +1,80 @@
+---
+title: "E. Dataset Integrity"
+---
+
+# E. Dataset Integrity
+
+Dataset integrity means the data can be trusted, checked, and reproduced.
+
+::: {.callout-note}
+A weak dataset can make a technically correct regression meaningless.
+:::
+
+## Source and Collection
+
+- [ ] Original source link is recorded.
+- [ ] Collection date is recorded.
+- [ ] Data collector names or roles are documented.
+- [ ] Screenshots or receipts are saved where relevant.
+- [ ] Citation or source acknowledgement is included.
+
+## Raw and Cleaned Files
+
+- [ ] Raw file is preserved.
+- [ ] Cleaned file is saved separately.
+- [ ] File names are clear.
+- [ ] Cleaning steps can be reproduced.
+- [ ] Reproducible cleaning log is available.
+
+## Variable Documentation
+
+- [ ] Variable dictionary is included.
+- [ ] Unit of observation is defined.
+- [ ] Units of measurement are recorded.
+- [ ] Constructed variables are explained.
+- [ ] Variable names are consistent across data, code, and report.
+
+## Data Quality Checks
+
+- [ ] Missing value report is created.
+- [ ] Duplicate check is completed.
+- [ ] Outlier check is completed.
+- [ ] Categorical level check is completed.
+- [ ] Numeric ranges are plausible.
+- [ ] Dates and time periods are plausible.
+
+## Constructed Variables
+
+- [ ] Formula is documented.
+- [ ] Source variables are identified.
+- [ ] Division by zero is avoided.
+- [ ] Logs use positive values only.
+- [ ] Constructed variable is checked after creation.
+
+## Warning Signs of Weak or Fake Datasets
+
+::: {.callout-warning}
+These warning signs do not automatically prove a dataset is fake, but they require explanation.
+:::
+
+- too perfect data
+- no missing values when missingness is expected
+- no source link
+- unrealistic variable distributions
+- repeated values without explanation
+- no collection date
+- no raw data file
+- numbers that cannot be verified
+- variable names with no definitions
+- cleaned data that cannot be reproduced
+- categories that appear inconsistent or misspelled
+- values outside realistic economic ranges
+
+## Minimum Integrity Statement
+
+Every empirical project should include a short statement like this:
+
+```text
+The raw dataset was preserved separately from the cleaned dataset. The unit of observation is [unit]. Missing values, duplicates, categorical levels, and outliers were checked before estimation. Constructed variables were created using documented formulas. The data source is acknowledged in the report.
+```
+

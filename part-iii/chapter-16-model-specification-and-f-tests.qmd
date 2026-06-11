@@ -1,0 +1,191 @@
+---
+title: "16. Model Selection"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+# 16. Model Selection
+
+```{python}
+#| label: setup
+#| include: false
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+from sklearn.metrics import mean_absolute_error
+try:
+    from sklearn.metrics import root_mean_squared_error
+except ImportError:
+    from sklearn.metrics import mean_squared_error
+    def root_mean_squared_error(y_true, y_pred):
+        return mean_squared_error(y_true, y_pred, squared=False)
+
+milk_data = pd.read_csv("Milk_Data_S2025n.csv")
+if "Volume" not in milk_data.columns:
+    milk_data["Volume"] = milk_data["Size"] * milk_data["Pieces"]
+milk_data["Volume1000"] = milk_data["Volume"] / 1000
+milk_data["Size1000"] = milk_data["Size"] / 1000
+```
+
+::: {.callout-tip}
+For F-test and model comparison formulas, see [Appendix A. Formula Sheet](../appendices/appendix-a-formula-sheet.qmd).
+:::
+
+## Purpose
+
+Model specification is the process of deciding which variables, transformations, and functional forms should be included in a regression model. This chapter introduces specification and F-tests using actual Milk Data model comparisons.
+
+## Applied Question
+
+> How do we decide whether additional variables belong in a model?
+
+## Model Comparison
+
+| Model | R² |
+|---|---:|
+| Volume only | 0.274 |
+| Volume + Size + Pieces | 0.302 |
+| Volume + Brand + Fat | 0.490 |
+| Log-Log Model | 0.655 |
+
+Model selection should not rely only on R². Researchers must also consider theory, interpretation, and parsimony.
+
+## Restricted and Unrestricted Models
+
+An F-test compares a restricted model with an unrestricted model.
+
+The restricted model is simpler. The unrestricted model contains additional variables. The test asks whether the added variables jointly improve the model.
+
+## Why We Need F-tests
+
+A t-test evaluates a single coefficient. An F-test evaluates several restrictions simultaneously.
+
+Example:
+
+$$
+H_0: Brand = 0 \; \text{and} \; Fat = 0
+$$
+
+The alternative is that at least one added coefficient is nonzero.
+
+## Actual Milk Data F-Test: Brand and Fat
+
+Restricted model:
+
+$$
+Price = \beta_0 + \beta_1 Volume1000 + u
+$$
+
+Unrestricted model:
+
+$$
+Price = \beta_0 + \beta_1 Volume1000 + Brand + Fat + u
+$$
+
+F-test:
+
+```text
+F = 5.013
+p < 0.001
+```
+
+We reject the null hypothesis that Brand and Fat are jointly unimportant.
+
+## Adding Size and Pieces
+
+Adding Size and Pieces to the volume-only model gives:
+
+```text
+F = 5.072
+p = 0.0069
+```
+
+Size and Pieces jointly contribute useful information.
+
+## Testing Functional Form
+
+Adding a quadratic term gives:
+
+```text
+F = 14.227
+p = 0.00020
+```
+
+The quadratic term significantly improves the model, supporting nonlinear pricing behavior.
+
+## Python Implementation
+
+```{python}
+# Restricted model
+model_r = smf.ols('Price ~ Volume1000', data=milk_data).fit()
+
+# Unrestricted model with Brand and Fat
+model_u = smf.ols(
+    'Price ~ Volume1000 + C(Brand, Treatment(reference="Almarai")) + C(Fat, Treatment(reference="Full"))',
+    data=milk_data
+).fit()
+
+print(model_r.rsquared)
+print(model_u.rsquared)
+print(model_u.fvalue)
+print(model_u.f_pvalue)
+```
+
+## Omitted Variable Bias
+
+If important variables are omitted, coefficients may be biased. The Milk Data provide a clear example. The volume coefficient changes from 417.0 in the simple model to 261.4 in the multiple regression with Size and Pieces.
+
+## Irrelevant Variables
+
+Including variables that do not belong in the model may increase complexity and reduce precision. Good models balance explanatory power with simplicity.
+
+## Parsimony
+
+Prefer the simplest model that adequately explains the data. Each variable should have theoretical justification and empirical relevance.
+
+## What the Milk Data Teaches Us
+
+- Additional variables matter.
+- Brand and Fat significantly improve the model.
+- Size and Pieces provide additional explanatory power.
+- The relationship between Volume and Price is nonlinear.
+- F-tests provide a formal method for evaluating model improvements.
+
+## Common Mistakes
+
+::: {.callout-warning}
+### Common Mistake 1
+Selecting variables solely based on statistical significance.
+:::
+
+::: {.callout-warning}
+### Common Mistake 2
+Ignoring omitted variable bias.
+:::
+
+::: {.callout-warning}
+### Common Mistake 3
+Using R² as the only model selection criterion.
+:::
+
+## Key Takeaways
+
+- Model specification is one of the most important tasks in econometrics.
+- F-tests evaluate multiple coefficients simultaneously.
+- Brand and Fat significantly improve the Milk Data model.
+- Size and Pieces provide additional explanatory power.
+- The quadratic term is statistically significant.
+- Good models balance theory, evidence, and simplicity.
+
+## Part III Summary
+
+You can now estimate simple regression models, conduct hypothesis tests, evaluate prediction performance, estimate multiple regression models, interpret elasticity estimates, use dummy variables, and evaluate model specification using F-tests.
+
+| Navigation |
+|------------|
+| [← 15. Dummy Variables](chapter-15-dummy-variables-and-categorical-factors.qmd) \| [Part III Home](part-iii-regression.qmd) \| Part IV. Problems in Applied Econometrics → |

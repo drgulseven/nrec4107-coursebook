@@ -1,0 +1,244 @@
+---
+title: "03. Python and Colab"
+subtitle: "NREC4107 - Applied Econometrics"
+format:
+  html:
+    toc: true
+    code-fold: false
+    code-tools: true
+execute:
+  eval: false
+  warning: false
+  message: false
+---
+
+## Opening purpose
+
+This chapter introduces Google Colab as the working environment for NREC4107.
+
+The course uses the actual milk dataset:
+
+```text
+Milk_Data_S2025n.csv
+```
+
+The dataset has **258 observations** and **11 variables**. Students will use Python in Google Colab to load, inspect, clean, visualize, and later model this dataset.
+
+::: {.callout-tip}
+For reusable Python templates, see [Appendix B. Python Code Guide](../appendices/appendix-b-python-code-guide.qmd).
+:::
+
+## Applied question
+
+How can we organize a reproducible Python workflow for the milk dataset?
+
+## Key idea
+
+Reproducibility means that the same analysis can be run again and produce the same results from the same data and code.
+
+A reproducible workflow should make clear:
+
+- where the data file is stored
+- which libraries are used
+- how the data are loaded
+- how variables are created
+- which cleaning decisions are made
+- where outputs are saved
+
+## Recommended Google Drive folder structure
+
+Use this structure in Google Drive:
+
+```text
+MyDrive/
+  NREC4107/
+    data/
+      Milk_Data_S2025n.csv
+    notebooks/
+    outputs/
+```
+
+This structure keeps raw data, notebooks, and outputs separate.
+
+## Step 1: open Google Colab
+
+Go to Google Colab and create a new notebook.
+
+Use text cells to explain what you are doing. Use code cells to run Python commands.
+
+A good notebook should not be only code. It should also contain short explanations.
+
+## Step 2: mount Google Drive
+
+```python
+from google.colab import drive
+drive.mount('/content/drive')
+```
+
+Google Colab will ask for permission to access your Google Drive.
+
+If the drive is not mounted, Python cannot read the dataset from Google Drive.
+
+## Step 3: import libraries
+
+```python
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+```
+
+In Part I, we mainly use `pandas`, `numpy`, and `matplotlib`.
+
+Later chapters also use libraries such as `seaborn`, `plotly`, `statsmodels`, and `sklearn`.
+
+## Step 4: load the milk dataset
+
+```python
+data_path = "/content/drive/MyDrive/NREC4107/data/Milk_Data_S2025n.csv"
+
+milk_data = pd.read_csv(data_path)
+
+milk_data.head()
+```
+
+If this code gives a file-not-found error, the most likely reason is that the file path is different from your Google Drive folder structure.
+
+## Step 5: inspect the dataset
+
+```python
+milk_data.shape
+```
+
+For the attached dataset, the shape is:
+
+```text
+(258, 11)
+```
+
+```python
+milk_data.columns.tolist()
+```
+
+The observed columns are:
+
+```text
+['Location', 'Type', 'Brand', 'Fat', 'Fresh', 'Price', 'Package', 'Size', 'Pieces', 'Flavor', 'Volume']
+```
+
+```python
+milk_data.info()
+```
+
+The `info()` command shows the number of rows, the variable names, non-null counts, and Python data types.
+
+## Step 6: inspect the first rows
+
+```python
+milk_data.head(10)
+```
+
+This is a simple but important step. Before running any analysis, students should look at the actual rows.
+
+A few observed rows from the attached dataset are:
+
+| Type   | Brand   | Size     |   Pieces | Volume   | Price    |
+|:-------|:--------|:---------|---------:|:---------|:---------|
+| Milk   | Almarai | 1,000.00 |        1 | 1,000.00 | 490.00   |
+| Milk   | Almarai | 1,000.00 |        4 | 4,000.00 | 1,960.00 |
+| Milk   | Mazoon  | 3,780.00 |        1 | 3,780.00 | 1,980.00 |
+| Milk   | Lacnor  | 125.00   |        6 | 750.00   | 540.00   |
+| Milk   | Almarai | 1,000.00 |        1 | 1,000.00 | 490.00   |
+| Milk   | Almarai | 1,000.00 |        4 | 4,000.00 | 1,960.00 |
+
+## Step 7: check missing values
+
+```python
+milk_data.isnull().sum()
+```
+
+The attached dataset has **0 missing values** across all columns.
+
+This does not mean all future datasets will be complete. Students should always check missing values before analysis.
+
+## Step 8: create a reproducible derived variable
+
+The dataset already contains `Volume`. We can verify the relationship:
+
+\[
+Volume = Size \times Pieces
+\]
+
+```python
+volume_check = milk_data["Volume"] == milk_data["Size"] * milk_data["Pieces"]
+
+volume_check.value_counts()
+```
+
+In the attached dataset, the number of rows where `Volume` does not match `Size × Pieces` is **0**.
+
+We can also create a unit-price style variable:
+
+```python
+milk_data["Price_per_1000_volume"] = (milk_data["Price"] / milk_data["Volume"]) * 1000
+
+milk_data[["Price", "Volume", "Price_per_1000_volume"]].head()
+```
+
+This variable should be described as price per 1000 units of recorded volume unless the physical unit of `Volume` is confirmed.
+
+## Step 9: save a working copy
+
+It is often useful to save a cleaned or prepared version of the dataset.
+
+```python
+output_path = "/content/drive/MyDrive/NREC4107/data/Milk_Data_S2025n_prepared.csv"
+
+milk_data.to_csv(output_path, index=False)
+```
+
+Do not overwrite the original dataset unless you are certain. It is better to save a prepared version with a new name.
+
+## Common Colab problems
+
+Common problems include:
+
+- the Google Drive is not mounted
+- the file path is wrong
+- the file name is misspelled
+- code cells are run out of order
+- a required library was not imported
+- the dataset is saved in a different folder
+- the original dataset was overwritten by mistake
+
+Most Colab errors are not econometric problems. They are workflow problems.
+
+## Interpretation
+
+A reproducible workflow protects the researcher from confusion. It makes the analysis easier to check, revise, and explain.
+
+For NREC4107, the minimum reproducible workflow is:
+
+1. mount Google Drive
+2. import libraries
+3. load `Milk_Data_S2025n.csv`
+4. inspect rows, columns, and data types
+5. check missing values
+6. create or verify important variables
+7. save outputs with clear names
+
+## Common mistakes
+
+- Writing code without text explanations.
+- Running cells out of order.
+- Using unclear file names such as `data.csv`.
+- Overwriting the original dataset.
+- Forgetting to check whether variables were created correctly.
+- Copying code without understanding what it does.
+
+## Key takeaway
+
+- Google Colab is the working Python environment for this course.
+- A clear folder structure makes analysis easier.
+- The milk dataset should be loaded from Google Drive.
+- Reproducible analysis requires clear code, clear file paths, and clear documentation.
+- Software errors should be separated from econometric interpretation.

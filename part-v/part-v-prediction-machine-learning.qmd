@@ -1,0 +1,61 @@
+---
+title: "Part V. Machine Learning"
+subtitle: "Applied Econometrics for Natural Resource Economics"
+description: "Five light Quarto lecture notes introducing prediction, train-test splits, machine learning models, model comparison, feature importance, and the limits of prediction for applied econometrics students."
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: false
+    code-fold: false
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+{{< include styles/part-v-navigation.html >}}
+
+# Part V. Machine Learning
+
+This part introduces prediction and machine learning for students of applied econometrics. The purpose is not to turn the course into a data science textbook. The purpose is to help students understand how prediction differs from explanation, how models are evaluated on unseen data, and why machine learning results must be interpreted carefully in economics.
+
+The central message is simple:
+
+::: {.callout-tip title="Main message"}
+Better prediction does not automatically mean better economic explanation.
+:::
+
+## In This Part
+
+| Chapter | Title | Main focus |
+|---:|---|---|
+| 22 | Train Test Split | Evaluating prediction on unseen data |
+| 23 | Econometrics vs ML | Explanation versus prediction |
+| 24 | Trees and Forests | Nonlinear prediction using tree-based models |
+| 25 | Gradient Boosting | Boosting and test-sample model comparison |
+| 26 | Feature Importance | What ML can and cannot tell us |
+
+## Suggested workflow
+
+Students should read these chapters after learning regression, hypothesis testing, functional forms, dummy variables, and model diagnostics. The concepts build directly on earlier econometric tools, but the evaluation logic changes. Instead of asking only whether a coefficient is statistically significant, students now ask whether a model predicts well on new observations.
+
+## Learning outcomes
+
+After completing Part V, students should be able to:
+
+- split a dataset into training and testing samples;
+- fit simple predictive models in Python;
+- evaluate predictions using MAE, MSE, RMSE, and test-sample \(R^2\);
+- compare regression, decision trees, Random Forests, and XGBoost;
+- explain why prediction accuracy is not the same as causality;
+- interpret feature importance cautiously.
+
+## Files included
+
+This package includes five Quarto chapter files, one Part V landing page, SVG figures, a navigation style file, and a `_quarto-part-v.yml` snippet that can be copied into the main course website configuration.
+
+<div class="chapter-nav">
+  <div class="prev"><a href="chapter-21-model-diagnostics-empirical-credibility.html">← Previous: 21</a></div>
+  <div class="next"><a href="chapter-22-train-test-split.html">Next: 22 →</a></div>
+</div>

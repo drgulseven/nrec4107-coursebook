@@ -1,0 +1,73 @@
+---
+title: "Part II. Visualization"
+subtitle: "NREC4107 - Applied Econometrics"
+format:
+  html:
+    toc: true
+    code-fold: false
+    code-tools: true
+execute:
+  eval: false
+  warning: false
+  message: false
+---
+
+## Purpose of Part II
+
+Part II introduces exploratory data analysis and visualization. Before estimating a regression model, an applied researcher should understand the data.
+
+Graphs help us see distributions, unusual observations, group differences, and possible relationships among variables. They do not prove an economic argument by themselves, but they help us ask better empirical questions.
+
+In this part, we continue using the milk product dataset as the main running example. The dataset includes variables such as `Price`, `Size`, `Pieces`, `Volume`, `Brand`, `Type`, `Fat`, `Fresh`, `Package`, `Flavor`, and `Location`.
+
+## Why visualization matters
+
+A table gives precise numbers. A graph gives structure.
+
+A good graph can show:
+
+- whether prices are concentrated or widely dispersed
+- whether some brands are more expensive on average
+- whether package size is associated with price
+- whether categorical variables such as fat content, package type, or location matter
+- whether a regression question is worth asking
+
+A poor graph can also mislead. For this reason, every graph in this course should be interpreted carefully.
+
+## In This PartI
+
+- [05. Descriptive Statistics](chapter-05-descriptive-statistics.qmd)
+- [06. Univariate Graphs](chapter-06-univariate-graphs.qmd)
+- [07. Bivariate Graphs](chapter-07-bivariate-graphs.qmd)
+- [08. Multivariate Graphs](chapter-08-multivariate-interactive-graphs.qmd)
+- [09. Research Questions](chapter-09-graphs-to-research-questions.qmd)
+
+## Dataset and software
+
+All code examples are written for Google Colab. Students should place the dataset in this folder structure:
+
+```text
+MyDrive/
+  NREC4107/
+    data/
+      Milk_Data_Cleaned.csv
+    notebooks/
+    outputs/
+```
+
+The code shown on the website is for learning and should be run in Google Colab, not on the website.
+
+## What students should be able to do after Part II
+
+After completing Part II, students should be able to:
+
+- describe numeric and categorical variables
+- create basic summary tables
+- produce univariate, bivariate, and multivariate graphs
+- identify unusual values and possible data problems
+- distinguish visual patterns from causal claims
+- convert visual observations into applied econometric questions
+
+## Key message
+
+Exploratory data analysis is not a decorative step. It is part of empirical reasoning. A good graph should help us understand the data and prepare for careful modeling.

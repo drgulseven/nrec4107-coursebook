@@ -1,0 +1,278 @@
+---
+title: "04. Data Cleaning"
+subtitle: "NREC4107 - Applied Econometrics"
+format:
+  html:
+    toc: true
+    code-fold: false
+    code-tools: true
+execute:
+  eval: false
+  warning: false
+  message: false
+---
+
+## Opening purpose
+
+This chapter introduces data cleaning and preparation using the actual course milk dataset:
+
+```text
+Milk_Data_S2025n.csv
+```
+
+Data cleaning is part of empirical work. It is not a minor technical step. Bad cleaning decisions can produce misleading tables, graphs, and regressions.
+
+The attached dataset has **258 observations** and **11 variables**.
+
+::: {.callout-tip}
+For dataset verification and cleaning documentation, see [Appendix E. Dataset Integrity](../appendices/appendix-e-dataset-integrity.qmd).
+:::
+
+## Applied question
+
+How should we inspect and prepare the milk dataset before visualization and regression?
+
+## Key idea
+
+Data cleaning means checking whether the dataset is ready for analysis.
+
+This includes:
+
+- checking column names
+- checking missing values
+- checking duplicated rows
+- checking variable types
+- verifying constructed variables
+- creating useful derived variables
+- saving a prepared copy
+- documenting every decision
+
+Cleaning does not mean automatically deleting observations.
+
+## Loading the dataset
+
+```python
+from google.colab import drive
+drive.mount('/content/drive')
+
+import pandas as pd
+import numpy as np
+
+data_path = "/content/drive/MyDrive/NREC4107/data/Milk_Data_S2025n.csv"
+milk_data = pd.read_csv(data_path)
+
+milk_data.head()
+```
+
+## Step 1: inspect rows and columns
+
+```python
+milk_data.shape
+```
+
+For the attached dataset, the shape is:
+
+```text
+(258, 11)
+```
+
+```python
+milk_data.columns.tolist()
+```
+
+The observed columns are:
+
+```text
+['Location', 'Type', 'Brand', 'Fat', 'Fresh', 'Price', 'Package', 'Size', 'Pieces', 'Flavor', 'Volume']
+```
+
+## Step 2: inspect data types
+
+```python
+milk_data.dtypes
+```
+
+Observed variable profile:
+
+| Variable   | Observed type   |   Missing values |   Unique values |
+|:-----------|:----------------|-----------------:|----------------:|
+| Location   | categorical     |                0 |               2 |
+| Type       | categorical     |                0 |               3 |
+| Brand      | categorical     |                0 |              19 |
+| Fat        | categorical     |                0 |               3 |
+| Fresh      | categorical     |                0 |               2 |
+| Price      | numeric         |                0 |             106 |
+| Package    | categorical     |                0 |               2 |
+| Size       | numeric         |                0 |              21 |
+| Pieces     | numeric         |                0 |               8 |
+| Flavor     | categorical     |                0 |               2 |
+| Volume     | numeric         |                0 |              33 |
+
+The numeric variables are `Price`, `Size`, `Pieces`, and `Volume`.
+
+The categorical variables are `Location`, `Type`, `Brand`, `Fat`, `Fresh`, `Package`, and `Flavor`.
+
+## Step 3: check missing values
+
+```python
+milk_data.isnull().sum()
+```
+
+Observed missing values by variable:
+
+| Variable   |   Missing values |
+|:-----------|-----------------:|
+| Location   |                0 |
+| Type       |                0 |
+| Brand      |                0 |
+| Fat        |                0 |
+| Fresh      |                0 |
+| Price      |                0 |
+| Package    |                0 |
+| Size       |                0 |
+| Pieces     |                0 |
+| Flavor     |                0 |
+| Volume     |                0 |
+
+The attached dataset has **0 missing values** across all columns.
+
+Since no missing values are observed, no missing-value imputation is needed for this dataset.
+
+This point is important. We should not demonstrate filling missing values as if it were necessary when the actual dataset does not contain missing values.
+
+## Step 4: check duplicated rows
+
+```python
+milk_data.duplicated().sum()
+```
+
+The attached dataset has **48 fully duplicated rows**.
+
+A duplicated row should not be deleted automatically. It may represent a genuine repeated product entry, a repeated observation from data collection, or a data entry duplicate. The correct decision depends on how the dataset was collected.
+
+For teaching purposes, we report the duplication count and keep the data unchanged unless there is a documented reason to remove observations.
+
+## Step 5: convert categorical variables
+
+Categorical variables can be converted to the `category` data type.
+
+```python
+categorical_columns = ["Location", "Type", "Brand", "Fat", "Fresh", "Package", "Flavor"]
+
+for col in categorical_columns:
+    if col in milk_data.columns:
+        milk_data[col] = milk_data[col].astype("category")
+
+milk_data.dtypes
+```
+
+This helps Python treat these variables as categories in later summaries and models.
+
+## Step 6: verify the volume variable
+
+The dataset already contains a `Volume` column. We verify whether it equals:
+
+\[
+Volume = Size \times Pieces
+\]
+
+```python
+volume_check = milk_data["Volume"] == milk_data["Size"] * milk_data["Pieces"]
+
+volume_check.value_counts()
+```
+
+The number of rows where `Volume` does not match `Size × Pieces` is **0**.
+
+```python
+(milk_data["Volume"] != milk_data["Size"] * milk_data["Pieces"]).sum()
+```
+
+This confirms that `Volume` is consistent with `Size × Pieces` in the attached dataset.
+
+## Step 7: create a unit-price style variable
+
+Total price is not always the best comparison when products have different recorded volumes.
+
+We can create:
+
+\[
+Price\ per\ 1000\ volume = \frac{Price}{Volume} \times 1000
+\]
+
+```python
+milk_data["Price_per_1000_volume"] = (milk_data["Price"] / milk_data["Volume"]) * 1000
+
+milk_data[["Price", "Volume", "Price_per_1000_volume"]].head()
+```
+
+This variable should be described as price per 1000 units of recorded volume unless the physical unit of `Volume` is confirmed.
+
+## Step 8: inspect prepared numeric variables
+
+```python
+prepared_numeric = ["Price", "Size", "Pieces", "Volume", "Price_per_1000_volume"]
+
+milk_data[prepared_numeric].describe()
+```
+
+Observed numeric summary:
+
+|                       |   count | mean     | std      |   min |    25% | 50%      | 75%      | max      |
+|:----------------------|--------:|:---------|:---------|------:|-------:|:---------|:---------|:---------|
+| Price                 |     258 | 1,028.08 | 907.73   | 100   | 450    | 850.00   | 1,250.00 | 4,990.00 |
+| Size                  |     258 | 857.29   | 766.05   | 120   | 200    | 1,000.00 | 1,000.00 | 3,800.00 |
+| Pieces                |     258 | 2.50     | 3.18     |   1   |   1    | 1.00     | 4.00     | 24.00    |
+| Volume                |     258 | 1,343.21 | 1,139.13 | 120   | 500    | 1,000.00 | 2,000.00 | 4,000.00 |
+| Price_per_1000_volume |     258 | 977.94   | 933.50   | 347.5 | 548.12 | 666.67   | 1,050.69 | 7,600.00 |
+
+The prepared dataset now includes both total price and a unit-price style variable.
+
+## Step 9: save a prepared dataset
+
+Save a prepared version with a new file name.
+
+```python
+output_path = "/content/drive/MyDrive/NREC4107/data/Milk_Data_S2025n_prepared.csv"
+
+milk_data.to_csv(output_path, index=False)
+```
+
+Do not overwrite the original file unless you are certain. Keeping the original file unchanged makes the analysis more reproducible.
+
+## Cleaning decisions for this dataset
+
+For the attached dataset, the appropriate documented cleaning decisions are:
+
+- keep all 258 observations
+- no missing-value treatment is needed
+- report the 48 fully duplicated rows but do not delete them automatically
+- convert observed categorical variables to category type for analysis
+- verify that `Volume = Size × Pieces`
+- create `Price_per_1000_volume` as a derived variable
+- save a prepared copy with a new file name
+
+## Interpretation
+
+Cleaning is not about making the dataset look perfect. It is about making the dataset transparent and ready for analysis.
+
+The important point is that every cleaning decision should be documented. If observations are removed, values are filled, or variables are transformed, the researcher must explain why.
+
+In this dataset, the main preparation step is not missing-value treatment. The main preparation steps are variable inspection, duplicate reporting, categorical conversion, volume verification, and creation of a unit-price style variable.
+
+## Common mistakes
+
+- Filling missing values when the dataset has no missing values.
+- Deleting duplicated rows without understanding how the data were collected.
+- Overwriting the original dataset.
+- Creating derived variables without checking the original variables.
+- Assuming the physical unit of `Volume` without documentation.
+- Treating data cleaning as separate from empirical interpretation.
+
+## Key takeaway
+
+- The attached milk dataset has 258 observations and 11 variables.
+- It has 0 missing values and 48 fully duplicated rows.
+- `Volume` is consistent with `Size × Pieces` in all rows.
+- `Price_per_1000_volume` is a useful derived variable for comparing products with different recorded volumes.
+- Cleaning choices must be documented because they affect all later graphs and models.
