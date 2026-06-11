@@ -50,15 +50,15 @@ Multicollinearity occurs when explanatory variables are highly correlated.
 
 For example:
 
-\[
-Corr(X_1,X_2)\approx 1
-\]
+$$
+\operatorname{Corr}(X_1,X_2)\approx 1
+$$
 
 or
 
-\[
-Corr(X_1,X_2)\approx -1
-\]
+$$
+\operatorname{Corr}(X_1,X_2)\approx -1
+$$
 
 In such situations, the regression model receives nearly the same information from multiple variables.
 
@@ -143,13 +143,13 @@ The stronger this relationship becomes, the harder it is to separate the individ
 
 We estimate the following model:
 
-\[
+$$
 Yield_i=
 \beta_0+
 \beta_1 Fertilizer_i+
 \beta_2 Irrigation_i+
 u_i
-\]
+$$
 
 ```{python}
 import statsmodels.api as sm

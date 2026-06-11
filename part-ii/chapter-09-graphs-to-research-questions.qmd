@@ -123,9 +123,9 @@ Volume
 
 A later simple regression could be written as:
 
-\[
+$$
 Price_i = \beta_0 + \beta_1 Volume_i + u_i
-\]
+$$
 
 This is an association model. It should not be described as proving that volume causes price to change.
 
@@ -388,15 +388,15 @@ Adding all variables without a reason may make interpretation harder. Omitting r
 
 A visual relationship between total price and volume can lead to a simple regression:
 
-\[
+$$
 Price_i = \beta_0 + \beta_1 Volume_i + u_i
-\]
+$$
 
 A richer question can lead to a multiple regression:
 
-\[
+$$
 Price_i = \beta_0 + \beta_1 Volume_i + \beta_2 Type_i + \beta_3 Package_i + u_i
-\]
+$$
 
 The second model asks whether the volume-price relationship remains after accounting for product type and package type.
 

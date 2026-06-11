@@ -111,9 +111,9 @@ A duplicated row should not be deleted automatically. It may be a repeated produ
 
 The dataset already contains a `Volume` column. We can verify whether it equals:
 
-\[
+$$
 Volume = Size \times Pieces
-\]
+$$
 
 ```python
 volume_check = milk_data["Volume"] == milk_data["Size"] * milk_data["Pieces"]
@@ -194,9 +194,9 @@ Total price can be misleading when package volumes differ. A larger package may 
 
 To avoid assuming the physical unit beyond the dataset, we define:
 
-\[
+$$
 Price\ per\ 1000\ volume = \frac{Price}{Volume} \times 1000
-\]
+$$
 
 ```python
 milk_data["Price_per_1000_volume"] = (milk_data["Price"] / milk_data["Volume"]) * 1000
@@ -222,13 +222,13 @@ The interquartile range rule is one simple way to flag unusual values. It does n
 
 The rule is:
 
-\[
+$$
 Lower = Q1 - 1.5 \times IQR
-\]
+$$
 
-\[
+$$
 Upper = Q3 + 1.5 \times IQR
-\]
+$$
 
 Values outside this range are flagged for inspection.
 

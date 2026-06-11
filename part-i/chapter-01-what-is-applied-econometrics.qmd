@@ -114,9 +114,9 @@ The milk dataset by itself is useful for description, visualization, association
 
 A basic empirical relationship can be written as:
 
-\[
+$$
 Price_i = f(Product\ characteristics_i)
-\]
+$$
 
 This means that price may be related to observed product characteristics such as volume, brand, type, package, fat category, freshness, flavor, and location.
 

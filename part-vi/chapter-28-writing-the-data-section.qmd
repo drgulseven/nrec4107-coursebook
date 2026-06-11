@@ -95,9 +95,9 @@ In the milk product dataset, each row represents one observed milk product.
 
 The constructed variable is:
 
-\[
-Volume_i = Size_i 	imes Pieces_i
-\]
+$$
+Volume_i = Size_i \times Pieces_i
+$$
 
 # Python Example: Inspecting Data
 

@@ -122,13 +122,13 @@ For categorical variables with many groups, always mention the reference group.
 
 For a log-log model:
 
-\[
-\ln(Price_i) = eta_0 + eta_1 \ln(Volume_i) + u_i
-\]
+$$
+\ln(Price_i) = \beta_0 + \beta_1 \ln(Volume_i) + u_i
+$$
 
 Interpretation:
 
-> A 1 percent increase in volume is associated with an estimated \(eta_1\) percent increase in price.
+> A 1 percent increase in volume is associated with an estimated \(\beta_1\) percent increase in price.
 
 # Robust Standard Errors
 

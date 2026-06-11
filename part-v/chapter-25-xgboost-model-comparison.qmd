@@ -147,13 +147,13 @@ The model creates many small trees. Each tree attempts to improve on previous pr
 
 The most common performance measures are RMSE, MAE, and test-sample \(R^2\).
 
-\[
-RMSE = \sqrt{\frac{1}{n}\sum(Actual_i - Predicted_i)^2}
-\]
+$$
+RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(Actual_i - Predicted_i)^2}
+$$
 
-\[
-MAE = \frac{1}{n}\sum |Actual_i - Predicted_i|
-\]
+$$
+MAE = \frac{1}{n}\sum_{i=1}^{n}|Actual_i - Predicted_i|
+$$
 
 For predictive analysis, RMSE and MAE are often more informative than \(R^2\) because they directly measure prediction errors.
 

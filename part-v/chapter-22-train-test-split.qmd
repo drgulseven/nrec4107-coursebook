@@ -49,9 +49,9 @@ Econometrics often focuses on understanding relationships. Prediction focuses on
 
 The prediction error for observation \(i\) is:
 
-\[
+$$
 Error_i = Actual_i - Predicted_i
-\]
+$$
 
 where `Actual` is the observed value, `Predicted` is the model forecast, and `Error` measures prediction accuracy.
 
@@ -111,9 +111,9 @@ The model uses only the training observations to estimate the relationship betwe
 
 We begin with a simple linear prediction model:
 
-\[
+$$
 Price_i = \beta_0 + \beta_1 Volume_i + u_i
-\]
+$$
 
 The model is estimated using only the training sample.
 
@@ -136,25 +136,25 @@ Prediction quality can be measured using several statistics.
 
 ### Mean absolute error
 
-\[
-MAE = \frac{1}{n}\sum |Actual_i - Predicted_i|
-\]
+$$
+MAE = \frac{1}{n}\sum_{i=1}^{n}|Actual_i - Predicted_i|
+$$
 
 MAE measures the average absolute prediction error.
 
 ### Mean squared error
 
-\[
-MSE = \frac{1}{n}\sum (Actual_i - Predicted_i)^2
-\]
+$$
+MSE = \frac{1}{n}\sum_{i=1}^{n}(Actual_i - Predicted_i)^2
+$$
 
 MSE penalizes large errors more heavily because errors are squared.
 
 ### Root mean squared error
 
-\[
-RMSE = \sqrt{MSE}
-\]
+$$
+RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(Actual_i - Predicted_i)^2}
+$$
 
 RMSE is often easier to interpret because it is expressed in the same unit as the dependent variable.
 

@@ -109,21 +109,21 @@ The variable [constructed variable] is constructed as [formula]. The dataset was
 
 # Methodology Template
 
-\[
-Y_i = eta_0 + eta_1 X_i + u_i
-\]
+$$
+Y_i = \beta_0 + \beta_1 X_i + u_i
+$$
 
 Applied example:
 
-\[
-Price_i = eta_0 + eta_1 Volume_i + u_i
-\]
+$$
+Price_i = \beta_0 + \beta_1 Volume_i + u_i
+$$
 
 Extended model:
 
-\[
-Price_i = eta_0 + eta_1 Volume_i + eta_2 Brand_i + eta_3 Fat_i + eta_4 Package_i + u_i
-\]
+$$
+Price_i = \beta_0 + \beta_1 Volume_i + \beta_2 Brand_i + \beta_3 Fat_i + \beta_4 Package_i + u_i
+$$
 
 # Results and Discussion Template
 

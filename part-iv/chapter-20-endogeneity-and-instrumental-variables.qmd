@@ -17,12 +17,12 @@ Does education increase earnings?
 
 Suppose we estimate the following relationship:
 
-\[
+$$
 Income_i =
 \beta_0 +
 \beta_1 Education_i +
 u_i
-\]
+$$
 
 where income represents annual earnings and education represents years of schooling.
 
@@ -57,17 +57,17 @@ As a result, causal interpretation requires caution.
 
 The classical regression model assumes:
 
-\[
-Cov(X,u)=0
-\]
+$$
+\operatorname{Cov}(X,u)=0
+$$
 
 This means that the explanatory variable is unrelated to the error term.
 
 Endogeneity occurs when:
 
-\[
-Cov(X,u)\neq0
-\]
+$$
+\operatorname{Cov}(X,u)\neq0
+$$
 
 When this assumption fails, OLS estimates become biased.
 
@@ -77,12 +77,12 @@ Unlike heteroskedasticity or multicollinearity, endogeneity threatens the validi
 
 Suppose we estimate:
 
-\[
+$$
 Income_i =
 \beta_0 +
 \beta_1 Education_i +
 u_i
-\]
+$$
 
 The error term contains many omitted factors:
 
@@ -97,9 +97,9 @@ Ability therefore affects education and income. Ability enters the error term be
 
 Consequently:
 
-\[
-Cov(Education,u)\neq0
-\]
+$$
+\operatorname{Cov}(Education,u)\neq0
+$$
 
 The OLS estimate is biased.
 
@@ -179,12 +179,12 @@ data.head()
 
 Suppose ability is unobserved. We estimate:
 
-\[
+$$
 Income_i=
 \beta_0+
 \beta_1 Education_i+
 u_i
-\]
+$$
 
 ```{python}
 import statsmodels.api as sm
@@ -223,9 +223,9 @@ Endogeneity can also arise through reverse causality.
 
 Consider:
 
-\[
+$$
 Sales=f(Advertising)
-\]
+$$
 
 Firms often increase advertising when sales rise.
 
@@ -279,17 +279,17 @@ A valid instrument must satisfy two conditions.
 
 The instrument must be correlated with the endogenous variable.
 
-\[
-Cov(Z,X)\neq0
-\]
+$$
+\operatorname{Cov}(Z,X)\neq0
+$$
 
 ### Exogeneity
 
 The instrument must not affect the error term.
 
-\[
-Cov(Z,u)=0
-\]
+$$
+\operatorname{Cov}(Z,u)=0
+$$
 
 Finding valid instruments is often the most difficult part of empirical research.
 
@@ -301,23 +301,23 @@ Instrumental variable estimation is commonly implemented through Two-Stage Least
 
 Predict education using the instrument.
 
-\[
+$$
 Education_i=
 \gamma_0+
 \gamma_1 Instrument_i+
 v_i
-\]
+$$
 
 ### Stage 2
 
 Use the predicted education values to estimate income.
 
-\[
+$$
 Income_i=
 \beta_0+
 \beta_1 \widehat{Education}_i+
 u_i
-\]
+$$
 
 The resulting estimate is less vulnerable to endogeneity bias.
 

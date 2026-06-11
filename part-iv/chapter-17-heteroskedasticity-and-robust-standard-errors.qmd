@@ -44,17 +44,17 @@ For example, a small farm may earn between 4,000 and 6,000 OMR annually, while a
 
 The classical linear regression model assumes that the variance of the error term is constant across all observations:
 
-\[
-Var(u_i)=\sigma^2
-\]
+$$
+\operatorname{Var}(u_i)=\sigma^2
+$$
 
 This assumption is known as **homoskedasticity**.
 
 Heteroskedasticity occurs when the error variance changes across observations:
 
-\[
-Var(u_i)\neq\sigma^2
-\]
+$$
+\operatorname{Var}(u_i)\neq\sigma^2
+$$
 
 In practical terms, some observations are measured with greater uncertainty than others.
 
@@ -123,9 +123,9 @@ This visual pattern suggests heteroskedasticity.
 
 We estimate a simple linear regression model:
 
-\[
+$$
 Income_i = \beta_0 + \beta_1 Land_i + u_i
-\]
+$$
 
 where \(Income_i\) is annual farm income, \(Land_i\) is farm size, and \(u_i\) is the random error term.
 
@@ -194,15 +194,15 @@ The Breusch-Pagan test evaluates whether the variance of the residuals changes s
 
 Null hypothesis:
 
-\[
-H_0:\text{Homoskedasticity}
-\]
+$$
+H_0:\text{ Homoskedasticity}
+$$
 
 Alternative hypothesis:
 
-\[
-H_1:\text{Heteroskedasticity}
-\]
+$$
+H_1:\text{ Heteroskedasticity}
+$$
 
 ```{python}
 from statsmodels.stats.diagnostic import het_breuschpagan

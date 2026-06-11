@@ -59,17 +59,17 @@ Example:
 
 # Baseline Model
 
-\[
-Price_i = eta_0 + eta_1 Volume_i + u_i
-\]
+$$
+Price_i = \beta_0 + \beta_1 Volume_i + u_i
+$$
 
-where \(Price_i\) is product price, \(Volume_i\) is package volume, \(eta_0\) is the intercept, \(eta_1\) measures the relationship between volume and price, and \(u_i\) is the error term.
+where \(Price_i\) is product price, \(Volume_i\) is package volume, \(\beta_0\) is the intercept, \(\beta_1\) measures the relationship between volume and price, and \(u_i\) is the error term.
 
 # Multiple Regression Model
 
-\[
-Price_i = eta_0 + eta_1 Volume_i + eta_2 Size_i + eta_3 Pieces_i + u_i
-\]
+$$
+Price_i = \beta_0 + \beta_1 Volume_i + \beta_2 Size_i + \beta_3 Pieces_i + u_i
+$$
 
 Multiple regression helps isolate relationships by holding other included variables constant.
 
@@ -83,25 +83,25 @@ The phrase "holding other variables constant" is one of the most important ideas
 
 ## Linear Model
 
-\[
-Y_i = eta_0 + eta_1 X_i + u_i
-\]
+$$
+Y_i = \beta_0 + \beta_1 X_i + u_i
+$$
 
 ## Log-Linear Model
 
-\[
-\ln(Y_i) = eta_0 + eta_1 X_i + u_i
-\]
+$$
+\ln(Y_i) = \beta_0 + \beta_1 X_i + u_i
+$$
 
-A one-unit increase in \(X\) is associated with an approximate \(100eta_1\)% change in \(Y\).
+A one-unit increase in \(X\) is associated with an approximate \(100\beta_1\)% change in \(Y\).
 
 ## Log-Log Model
 
-\[
-\ln(Y_i) = eta_0 + eta_1 \ln(X_i) + u_i
-\]
+$$
+\ln(Y_i) = \beta_0 + \beta_1 \ln(X_i) + u_i
+$$
 
-The coefficient \(eta_1\) is an elasticity.
+The coefficient \(\beta_1\) is an elasticity.
 
 # Estimation Method
 

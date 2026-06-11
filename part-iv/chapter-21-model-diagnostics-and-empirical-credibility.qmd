@@ -23,12 +23,12 @@ Can we trust the estimated relationship between fertilizer use and crop yield?
 
 Suppose a researcher estimates the following model:
 
-\[
+$$
 Yield_i =
 \beta_0 +
 \beta_1 Fertilizer_i +
 u_i
-\]
+$$
 
 The coefficient on fertilizer is positive and statistically significant.
 
@@ -220,15 +220,15 @@ A common diagnostic is the Ramsey RESET test. The RESET test examines whether ad
 
 Null hypothesis:
 
-\[
-H_0:\text{Model correctly specified}
-\]
+$$
+H_0:\text{ Model correctly specified}
+$$
 
 Alternative hypothesis:
 
-\[
-H_1:\text{Model may be misspecified}
-\]
+$$
+H_1:\text{ Model may be misspecified}
+$$
 
 ## Ramsey RESET test
 

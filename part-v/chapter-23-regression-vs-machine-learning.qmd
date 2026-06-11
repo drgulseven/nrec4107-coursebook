@@ -68,9 +68,9 @@ Neither approach is universally superior.
 
 Regression models are closely connected to economic theory. Suppose we estimate:
 
-\[
+$$
 Price_i = \beta_0 + \beta_1 Volume_i + u_i
-\]
+$$
 
 The coefficient \(\beta_1\) has a direct interpretation. For example, a one-liter increase in package volume may be associated with a specific change in price, on average.
 

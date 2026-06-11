@@ -164,9 +164,9 @@ This does not mean all future datasets will be complete. Students should always 
 
 The dataset already contains `Volume`. We can verify the relationship:
 
-\[
+$$
 Volume = Size \times Pieces
-\]
+$$
 
 ```python
 volume_check = milk_data["Volume"] == milk_data["Size"] * milk_data["Pieces"]

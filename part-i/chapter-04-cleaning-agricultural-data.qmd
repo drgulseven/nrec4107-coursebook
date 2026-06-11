@@ -172,9 +172,9 @@ This helps Python treat these variables as categories in later summaries and mod
 
 The dataset already contains a `Volume` column. We verify whether it equals:
 
-\[
+$$
 Volume = Size \times Pieces
-\]
+$$
 
 ```python
 volume_check = milk_data["Volume"] == milk_data["Size"] * milk_data["Pieces"]
@@ -196,9 +196,9 @@ Total price is not always the best comparison when products have different recor
 
 We can create:
 
-\[
+$$
 Price\ per\ 1000\ volume = \frac{Price}{Volume} \times 1000
-\]
+$$
 
 ```python
 milk_data["Price_per_1000_volume"] = (milk_data["Price"] / milk_data["Volume"]) * 1000

@@ -41,9 +41,9 @@ As a result, regression errors often display patterns over time.
 
 The classical regression model assumes:
 
-\[
-Cov(u_t,u_s)=0
-\]
+$$
+\operatorname{Cov}(u_t,u_s)=0
+$$
 
 for all \(t \neq s\).
 
@@ -51,9 +51,9 @@ This means that errors from different time periods are unrelated.
 
 Autocorrelation occurs when errors are correlated across time:
 
-\[
-Cov(u_t,u_{t-1}) \neq 0
-\]
+$$
+\operatorname{Cov}(u_t,u_{t-1}) \neq 0
+$$
 
 Positive autocorrelation is most common. In this case, positive errors tend to be followed by positive errors and negative errors tend to be followed by negative errors.
 
@@ -114,9 +114,9 @@ This persistence is typical of time-series data.
 
 We estimate a simple trend model:
 
-\[
+$$
 Price_t = \beta_0 + \beta_1 Time_t + u_t
-\]
+$$
 
 ```{python}
 import statsmodels.api as sm
