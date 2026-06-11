@@ -24,3 +24,6 @@ incoming-zips/
 
 # Local macOS files
 .DS_Store
+_freeze/
+docs/*_files/
+docs/*.html
