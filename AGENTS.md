@@ -2,7 +2,7 @@
 
 ## Scope
 
-These instructions apply to all files inside.
+These instructions apply to all files in this repository.
 
 This section is a Quarto coursebook for NREC4107 Applied Econometrics. The material is intended for undergraduate Natural Resource Economics students. The tone should be clear, practical, and beginner friendly.
 
