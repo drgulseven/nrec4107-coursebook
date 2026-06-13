@@ -21,6 +21,7 @@ jupyter: .venv/bin/python
 
 website:
   title: "NREC4107"
+  site-url: "https://nrec4107.osmangulseven.com"
   sidebar:
     style: docked
     search: true
