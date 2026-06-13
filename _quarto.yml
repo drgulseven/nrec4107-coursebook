@@ -1,6 +1,8 @@
 project:
   type: website
   output-dir: _site
+  resources:
+    - assets/reader-tools.js
   render:
     - "*.qmd"
     - "part-i/*.qmd"
@@ -158,6 +160,10 @@ website:
 format:
   html:
     theme: cosmo
+    css:
+      - assets/reader-tools.css
+    include-after-body:
+      - assets/reader-tools.html
     toc: true
     toc-location: right
     number-sections: false
